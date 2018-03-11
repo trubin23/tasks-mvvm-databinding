@@ -4,8 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
+import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TASKS_VIEWMODEL_TAG = "TASKS_VIEWMODEL_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private TasksViewModel findOrCreateViewModel() {
-        return null;
+        ViewModelHolder<TasksViewModel> retainedViewModel =
+                (ViewModelHolder<TasksViewModel>) getSupportFragmentManager()
+                        .findFragmentByTag(TASKS_VIEWMODEL_TAG);
+
+        if (retainedViewModel != null && retainedViewModel.getViewModel() != null){
+            return retainedViewModel.getViewModel();
+        } else {
+            return null;
+        }
     }
 }
