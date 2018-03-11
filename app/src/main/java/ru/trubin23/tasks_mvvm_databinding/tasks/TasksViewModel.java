@@ -6,5 +6,5 @@ import android.databinding.BaseObservable;
  * Created by Andrey on 11.03.2018.
  */
 
-public class TasksViewModel extends BaseObservable {
+class TasksViewModel extends BaseObservable {
 }

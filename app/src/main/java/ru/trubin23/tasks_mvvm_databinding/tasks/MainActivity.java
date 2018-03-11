@@ -3,6 +3,7 @@ package ru.trubin23.tasks_mvvm_databinding.tasks;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import ru.trubin23.tasks_mvvm_databinding.ActivityUtils;
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
 
@@ -34,7 +35,13 @@ public class MainActivity extends AppCompatActivity {
         if (retainedViewModel != null && retainedViewModel.getViewModel() != null){
             return retainedViewModel.getViewModel();
         } else {
-            return null;
+            TasksViewModel viewModel = new TasksViewModel();
+
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    ViewModelHolder.createContainer(viewModel),
+                    TASKS_VIEWMODEL_TAG);
+
+            return viewModel;
         }
     }
 }
