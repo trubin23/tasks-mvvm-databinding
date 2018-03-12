@@ -1,4 +1,4 @@
-package ru.trubin23.tasks_mvvm_databinding;
+package ru.trubin23.tasks_mvvm_databinding.util;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
