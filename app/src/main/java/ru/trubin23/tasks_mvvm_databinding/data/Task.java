@@ -46,4 +46,33 @@ public final class Task {
         mCompleted = completed;
         mDateOfChange = dateOfChange;
     }
+
+    @NonNull
+    public String getTaskId() {
+        return mTaskId;
+    }
+
+    @NonNull
+    public String getTitle() {
+        return mTitle;
+    }
+
+    @NonNull
+    public String getDescription() {
+        return mDescription;
+    }
+
+    @NonNull
+    public String getDateOfCreation() {
+        return mDateOfCreation;
+    }
+
+    public boolean isCompleted() {
+        return mCompleted;
+    }
+
+    @NonNull
+    public String getDateOfChange() {
+        return mDateOfChange;
+    }
 }
