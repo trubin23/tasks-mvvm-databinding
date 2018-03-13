@@ -2,6 +2,7 @@ package ru.trubin23.tasks_mvvm_databinding.data.source;
 
 import android.support.annotation.NonNull;
 
+import ru.trubin23.tasks_mvvm_databinding.data.Task;
 import ru.trubin23.tasks_mvvm_databinding.data.source.local.TasksLocalDataSource;
 
 /**
@@ -27,5 +28,40 @@ public class TasksRepository implements TasksDataSource {
             INSTANCE = new TasksRepository(tasksRemoteDataSource, tasksLocalDataSource);
         }
         return INSTANCE;
+    }
+
+    @Override
+    public void getTasks(@NonNull LoadTasksCallback callback) {
+
+    }
+
+    @Override
+    public void getTask(@NonNull String taskId, @NonNull GetTaskCallback callback) {
+
+    }
+
+    @Override
+    public void saveTask(@NonNull Task task) {
+
+    }
+
+    @Override
+    public void updateTask(@NonNull Task task) {
+
+    }
+
+    @Override
+    public void deleteTask(@NonNull String taskId) {
+
+    }
+
+    @Override
+    public void completedTask(@NonNull String taskId, boolean completed) {
+
+    }
+
+    @Override
+    public void clearCompletedTask() {
+
     }
 }

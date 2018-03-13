@@ -14,7 +14,7 @@ public final class Task {
 
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "task-id")
+    @ColumnInfo(name = "task_id")
     private final String mTaskId;
 
     @NonNull
@@ -26,14 +26,14 @@ public final class Task {
     private final String mDescription;
 
     @NonNull
-    @ColumnInfo(name = "date-of-creation")
+    @ColumnInfo(name = "date_of_creation")
     private final String mDateOfCreation;
 
     @ColumnInfo(name = "completed")
     private final boolean mCompleted;
 
     @NonNull
-    @ColumnInfo(name = "date-of-change")
+    @ColumnInfo(name = "date_of_change")
     private final String mDateOfChange;
 
     public Task(@NonNull String title, @NonNull String description,
