@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 import ru.trubin23.tasks_mvvm_databinding.data.source.local.TasksDatabase;
+import ru.trubin23.tasks_mvvm_databinding.data.source.local.TasksLocalRepository;
+import ru.trubin23.tasks_mvvm_databinding.data.source.remote.TasksRemoteRepository;
 
 /**
  * Created by Andrey on 12.03.2018.
@@ -15,7 +17,7 @@ public class Injection {
     public static TasksRepository provideTasksRepository(@NonNull Context context) {
         TasksDatabase tasksDatabase = TasksDatabase.getInstance(context);
 
-        //TODO: implement the transfer of remoteDataSource and localDataSource correctly
-        return TasksRepository.getInstance(null, null);
+        return TasksRepository.getInstance(TasksRemoteRepository.getInstance(),
+                TasksLocalRepository.getInstance(tasksDatabase.tasksDao()));
     }
 }

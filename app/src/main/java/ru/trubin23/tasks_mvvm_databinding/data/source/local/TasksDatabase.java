@@ -17,6 +17,8 @@ public abstract class TasksDatabase extends RoomDatabase {
 
     private static TasksDatabase INSTANCE;
 
+    public abstract TasksDao tasksDao();
+
     private static final Object sLock = new Object();
 
     public static TasksDatabase getInstance(@NonNull Context context) {
