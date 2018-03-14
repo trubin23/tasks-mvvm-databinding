@@ -1,5 +1,10 @@
 package ru.trubin23.tasks_mvvm_databinding.data.source.local;
 
+import android.support.annotation.NonNull;
+
+import java.util.List;
+
+import ru.trubin23.tasks_mvvm_databinding.data.Task;
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksDataSource;
 
 /**
@@ -9,4 +14,6 @@ import ru.trubin23.tasks_mvvm_databinding.data.source.TasksDataSource;
 public interface TasksLocalDataSource extends TasksDataSource{
 
     void deleteAllTasks();
+
+    void refresh(@NonNull List<Task> tasks);
 }

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
-import ru.trubin23.tasks_mvvm_databinding.data.source.TasksDataSource;
 
 /**
  * Created by Andrey on 14.03.2018.
@@ -43,17 +42,40 @@ public class TasksCacheRepository implements TasksCacheDataSource {
         return mCacheIsDirty;
     }
 
-    private boolean cacheAvailable() {
+    private boolean cacheNotAvailable() {
         return mCacheIsDirty || mCachedTask == null || mCachedTask.isEmpty();
     }
 
     @Nullable
     @Override
     public List<Task> getTasks() {
-        if (cacheAvailable()) {
+        if (cacheNotAvailable()) {
             return null;
         } else {
             return new ArrayList<>(mCachedTask.values());
+        }
+    }
+
+    @Override
+    public void refresh(@NonNull List<Task> tasks) {
+        if (mCachedTask == null) {
+            mCachedTask = new LinkedHashMap<>();
+        }
+        mCachedTask.clear();
+
+        for (Task task : tasks) {
+            mCachedTask.put(task.getTaskId(), task);
+        }
+        mCacheIsDirty = false;
+    }
+
+    @Nullable
+    @Override
+    public Task getTaskById(@NonNull String taskId) {
+        if (cacheNotAvailable()) {
+            return null;
+        } else {
+            return mCachedTask.get(taskId);
         }
     }
 }

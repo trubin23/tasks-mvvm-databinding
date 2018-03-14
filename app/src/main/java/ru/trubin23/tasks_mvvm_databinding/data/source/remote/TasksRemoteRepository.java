@@ -38,12 +38,12 @@ public class TasksRemoteRepository implements TasksDataSource {
 
     @Override
     public void getTasks(@NonNull LoadTasksCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override
     public void getTask(@NonNull String taskId, @NonNull GetTaskCallback callback) {
-
+        callback.onDataNotAvailable();
     }
 
     @Override

@@ -2,6 +2,7 @@ package ru.trubin23.tasks_mvvm_databinding.data.source.local;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -76,5 +77,13 @@ public class TasksLocalRepository implements TasksLocalDataSource {
     @Override
     public void clearCompletedTask() {
 
+    }
+
+    @Override
+    public void refresh(@NonNull List<Task> tasks) {
+        deleteAllTasks();
+        for (Task task : tasks){
+            saveTask(task);
+        }
     }
 }

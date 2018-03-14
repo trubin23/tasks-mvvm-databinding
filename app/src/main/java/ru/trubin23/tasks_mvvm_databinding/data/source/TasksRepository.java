@@ -1,11 +1,8 @@
 package ru.trubin23.tasks_mvvm_databinding.data.source;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
 import ru.trubin23.tasks_mvvm_databinding.data.source.cache.TasksCacheDataSource;
@@ -36,7 +33,7 @@ public class TasksRepository implements TasksDataSource {
                                               @NonNull TasksCacheDataSource tasksCacheDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new TasksRepository(tasksRemoteDataSource,
-                    tasksLocalDataSource,tasksCacheDataSource);
+                    tasksLocalDataSource, tasksCacheDataSource);
         }
         return INSTANCE;
     }
@@ -44,12 +41,12 @@ public class TasksRepository implements TasksDataSource {
     @Override
     public void getTasks(@NonNull LoadTasksCallback callback) {
         List<Task> tasks = mTasksCacheDataSource.getTasks();
-        if (tasks != null){
+        if (tasks != null) {
             callback.onTasksLoaded(tasks);
         }
 
-        if (mTasksCacheDataSource.isDirty()){
-            getTasksFromRemoteDataSource(callback);
+        if (mTasksCacheDataSource.isDirty()) {
+            getTasksFromRemoteDataSource(callback, true);
         } else {
             getTasksFromLocalDataSource(callback, true);
         }
@@ -57,6 +54,7 @@ public class TasksRepository implements TasksDataSource {
 
     @Override
     public void getTask(@NonNull String taskId, @NonNull GetTaskCallback callback) {
+        //Task task = mTasksCacheDataSource.getTaskById(taskId);
 
     }
 
@@ -85,12 +83,44 @@ public class TasksRepository implements TasksDataSource {
 
     }
 
-    private void getTasksFromLocalDataSource(@NonNull LoadTasksCallback callback,
-                                             boolean handleErrors) {
+    private void getTasksFromLocalDataSource(@NonNull final LoadTasksCallback callback,
+                                             final boolean handleErrors) {
+        mTasksLocalDataSource.getTasks(new LoadTasksCallback() {
+            @Override
+            public void onTasksLoaded(@NonNull List<Task> tasks) {
+                mTasksCacheDataSource.refresh(tasks);
+                callback.onTasksLoaded(tasks);
+            }
 
+            @Override
+            public void onDataNotAvailable() {
+                if (handleErrors) {
+                    getTasksFromRemoteDataSource(callback, false);
+                } else {
+                    callback.onDataNotAvailable();
+                }
+            }
+        });
     }
 
-    private void getTasksFromRemoteDataSource(@NonNull LoadTasksCallback callback) {
+    private void getTasksFromRemoteDataSource(@NonNull final LoadTasksCallback callback,
+                                              final boolean handleErrors) {
+        mTasksRemoteDataSource.getTasks(new LoadTasksCallback() {
+            @Override
+            public void onTasksLoaded(@NonNull List<Task> tasks) {
+                mTasksCacheDataSource.refresh(tasks);
+                mTasksLocalDataSource.refresh(tasks);
+                callback.onTasksLoaded(tasks);
+            }
 
+            @Override
+            public void onDataNotAvailable() {
+                if (handleErrors) {
+                    getTasksFromLocalDataSource(callback, false);
+                } else {
+                    callback.onDataNotAvailable();
+                }
+            }
+        });
     }
 }

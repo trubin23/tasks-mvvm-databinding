@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvvm_databinding.data.source.cache;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.List;
@@ -16,4 +17,9 @@ public interface TasksCacheDataSource {
 
     @Nullable
     List<Task> getTasks();
+
+    void refresh(@NonNull List<Task> tasks);
+
+    @Nullable
+    Task getTaskById(@NonNull String taskId);
 }
