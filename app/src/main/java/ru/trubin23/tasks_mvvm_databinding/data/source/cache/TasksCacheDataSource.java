@@ -13,13 +13,15 @@ import ru.trubin23.tasks_mvvm_databinding.data.Task;
 
 public interface TasksCacheDataSource {
 
-    boolean isDirty();
+    void refresh(@NonNull List<Task> tasks);
+
+    void irrelevantState();
 
     @Nullable
     List<Task> getTasks();
 
-    void refresh(@NonNull List<Task> tasks);
-
     @Nullable
     Task getTaskById(@NonNull String taskId);
+
+    void addTask(@NonNull Task task);
 }

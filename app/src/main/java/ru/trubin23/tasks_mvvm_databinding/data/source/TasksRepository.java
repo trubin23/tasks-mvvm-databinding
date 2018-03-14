@@ -12,13 +12,15 @@ import ru.trubin23.tasks_mvvm_databinding.data.source.local.TasksLocalDataSource
  * Created by Andrey on 12.03.2018.
  */
 
-public class TasksRepository implements TasksDataSource {
+public class TasksRepository implements TasksMainDataSource {
 
     private static TasksRepository INSTANCE;
 
     private final TasksDataSource mTasksRemoteDataSource;
     private final TasksLocalDataSource mTasksLocalDataSource;
     private final TasksCacheDataSource mTasksCacheDataSource;
+
+    private boolean mForceRefresh = false;
 
     private TasksRepository(@NonNull TasksDataSource tasksRemoteDataSource,
                             @NonNull TasksLocalDataSource tasksLocalDataSource,
@@ -43,44 +45,14 @@ public class TasksRepository implements TasksDataSource {
         List<Task> tasks = mTasksCacheDataSource.getTasks();
         if (tasks != null) {
             callback.onTasksLoaded(tasks);
+            return;
         }
 
-        if (mTasksCacheDataSource.isDirty()) {
+        if (mForceRefresh) {
             getTasksFromRemoteDataSource(callback, true);
         } else {
             getTasksFromLocalDataSource(callback, true);
         }
-    }
-
-    @Override
-    public void getTask(@NonNull String taskId, @NonNull GetTaskCallback callback) {
-        //Task task = mTasksCacheDataSource.getTaskById(taskId);
-
-    }
-
-    @Override
-    public void saveTask(@NonNull Task task) {
-
-    }
-
-    @Override
-    public void updateTask(@NonNull Task task) {
-
-    }
-
-    @Override
-    public void deleteTask(@NonNull String taskId) {
-
-    }
-
-    @Override
-    public void completedTask(@NonNull String taskId, boolean completed) {
-
-    }
-
-    @Override
-    public void clearCompletedTask() {
-
     }
 
     private void getTasksFromLocalDataSource(@NonNull final LoadTasksCallback callback,
@@ -110,6 +82,7 @@ public class TasksRepository implements TasksDataSource {
             public void onTasksLoaded(@NonNull List<Task> tasks) {
                 mTasksCacheDataSource.refresh(tasks);
                 mTasksLocalDataSource.refresh(tasks);
+                mForceRefresh = false;
                 callback.onTasksLoaded(tasks);
             }
 
@@ -122,5 +95,76 @@ public class TasksRepository implements TasksDataSource {
                 }
             }
         });
+    }
+
+    @Override
+    public void getTask(@NonNull final String taskId,
+                        @NonNull final GetTaskCallback callback) {
+        Task task = mTasksCacheDataSource.getTaskById(taskId);
+        if (task != null){
+            callback.onTaskLoaded(task);
+            return;
+        }
+
+        mTasksLocalDataSource.getTask(taskId, new GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(@NonNull Task task) {
+                mTasksCacheDataSource.addTask(task);
+                callback.onTaskLoaded(task);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                getOneTaskFromRemoteDataSource(taskId, callback);
+            }
+        });
+    }
+
+    private void getOneTaskFromRemoteDataSource(@NonNull String taskId,
+                                                @NonNull final GetTaskCallback callback) {
+        mTasksRemoteDataSource.getTask(taskId, new GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(@NonNull Task task) {
+                mTasksCacheDataSource.addTask(task);
+                mTasksLocalDataSource.saveTask(task);
+                callback.onTaskLoaded(task);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
+    }
+
+    @Override
+    public void saveTask(@NonNull Task task) {
+
+    }
+
+    @Override
+    public void updateTask(@NonNull Task task) {
+
+    }
+
+    @Override
+    public void deleteTask(@NonNull String taskId) {
+
+    }
+
+    @Override
+    public void completedTask(@NonNull String taskId, boolean completed) {
+
+    }
+
+    @Override
+    public void clearCompletedTask() {
+
+    }
+
+    @Override
+    public void refreshTasks() {
+        mTasksCacheDataSource.irrelevantState();
+        mForceRefresh = true;
     }
 }

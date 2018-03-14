@@ -37,23 +37,8 @@ public class TasksCacheRepository implements TasksCacheDataSource {
         return INSTANCE;
     }
 
-    @Override
-    public boolean isDirty() {
-        return mCacheIsDirty;
-    }
-
     private boolean cacheNotAvailable() {
         return mCacheIsDirty || mCachedTask == null || mCachedTask.isEmpty();
-    }
-
-    @Nullable
-    @Override
-    public List<Task> getTasks() {
-        if (cacheNotAvailable()) {
-            return null;
-        } else {
-            return new ArrayList<>(mCachedTask.values());
-        }
     }
 
     @Override
@@ -69,6 +54,21 @@ public class TasksCacheRepository implements TasksCacheDataSource {
         mCacheIsDirty = false;
     }
 
+    @Override
+    public void irrelevantState() {
+        mCacheIsDirty = true;
+    }
+
+    @Nullable
+    @Override
+    public List<Task> getTasks() {
+        if (cacheNotAvailable()) {
+            return null;
+        } else {
+            return new ArrayList<>(mCachedTask.values());
+        }
+    }
+
     @Nullable
     @Override
     public Task getTaskById(@NonNull String taskId) {
@@ -77,5 +77,13 @@ public class TasksCacheRepository implements TasksCacheDataSource {
         } else {
             return mCachedTask.get(taskId);
         }
+    }
+
+    @Override
+    public void addTask(@NonNull Task task) {
+        if (mCachedTask == null) {
+            mCachedTask = new LinkedHashMap<>();
+        }
+        mCachedTask.put(task.getTaskId(), task);
     }
 }
