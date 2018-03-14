@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
+import ru.trubin23.tasks_mvvm_databinding.data.source.cache.TasksCacheRepository;
 import ru.trubin23.tasks_mvvm_databinding.data.source.local.TasksDatabase;
 import ru.trubin23.tasks_mvvm_databinding.data.source.local.TasksLocalRepository;
 import ru.trubin23.tasks_mvvm_databinding.data.source.remote.TasksRemoteRepository;
@@ -18,6 +19,7 @@ public class Injection {
         TasksDatabase tasksDatabase = TasksDatabase.getInstance(context);
 
         return TasksRepository.getInstance(TasksRemoteRepository.getInstance(),
-                TasksLocalRepository.getInstance(tasksDatabase.tasksDao()));
+                TasksLocalRepository.getInstance(tasksDatabase.tasksDao()),
+                TasksCacheRepository.getInstance());
     }
 }
