@@ -32,4 +32,9 @@ class StatusOfTask {
     static Integer booleanToInteger(boolean completed) {
         return completed ? 1 : 0;
     }
+
+    @NonNull
+    static boolean integerToBoolean(Integer completed) {
+        return completed != 0;
+    }
 }

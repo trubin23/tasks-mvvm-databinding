@@ -1,5 +1,7 @@
 package ru.trubin23.tasks_mvvm_databinding.data.source.remote;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,68 +13,79 @@ class NetworkTask {
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private String mId;
     @SerializedName("title")
     @Expose
-    private String title;
+    private String mTitle;
     @SerializedName("description")
     @Expose
-    private String description;
+    private String mDescription;
     @SerializedName("dateOfCreation")
     @Expose
-    private String dateOfCreation;
+    private String mDateOfCreation;
     @SerializedName("completed")
     @Expose
-    private String completed;
+    private Integer mCompleted;
     @SerializedName("dateOfChange")
     @Expose
-    private String dateOfChange;
+    private String mDateOfChange;
+
+    public NetworkTask(@NonNull String id, @NonNull String title,
+                       @NonNull String description, @NonNull String dateOfCreation,
+                       boolean completed, @NonNull String dateOfChange) {
+        mId = id;
+        mTitle = title;
+        mDescription = description;
+        mDateOfCreation = dateOfCreation;
+        mCompleted = StatusOfTask.booleanToInteger(completed);
+        mDateOfChange = dateOfChange;
+    }
 
     public String getId() {
-        return id;
+        return mId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        mId = id;
     }
 
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        mTitle = title;
     }
 
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        mDescription = description;
     }
 
     public String getDateOfCreation() {
-        return dateOfCreation;
+        return mDateOfCreation;
     }
 
     public void setDateOfCreation(String dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
+        mDateOfCreation = dateOfCreation;
     }
 
-    public String getCompleted() {
-        return completed;
+    public Integer getCompleted() {
+        return mCompleted;
     }
 
-    public void setCompleted(String completed) {
-        this.completed = completed;
+    public void setCompleted(Integer completed) {
+        mCompleted = completed;
     }
 
     public String getDateOfChange() {
-        return dateOfChange;
+        return mDateOfChange;
     }
 
     public void setDateOfChange(String dateOfChange) {
-        this.dateOfChange = dateOfChange;
+        mDateOfChange = dateOfChange;
     }
 }
