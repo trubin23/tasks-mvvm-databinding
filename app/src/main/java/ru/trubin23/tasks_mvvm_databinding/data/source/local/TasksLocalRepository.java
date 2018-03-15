@@ -7,7 +7,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
-import ru.trubin23.tasks_mvvm_databinding.data.source.TasksDataSource;
 
 /**
  * Created by Andrey on 13.03.2018.
@@ -41,46 +40,60 @@ public class TasksLocalRepository implements TasksLocalDataSource {
 
     @Override
     public void getTasks(@NonNull LoadTasksCallback callback) {
-
+        mDiskIO.execute(() -> {
+            List<Task> tasks = mTasksDao.getTasks();
+            if (tasks.isEmpty()){
+                callback.onDataNotAvailable();
+            } else {
+                callback.onTasksLoaded(tasks);
+            }
+        });
     }
 
     @Override
     public void getTask(@NonNull String taskId, @NonNull GetTaskCallback callback) {
-
+        mDiskIO.execute(() -> {
+            Task task = mTasksDao.getTaskById(taskId);
+            if (task == null){
+                callback.onDataNotAvailable();
+            } else {
+                callback.onTaskLoaded(task);
+            }
+        });
     }
 
     @Override
     public void saveTask(@NonNull Task task) {
-
+        mDiskIO.execute(() -> mTasksDao.insertTask(task));
     }
 
     @Override
     public void updateTask(@NonNull Task task) {
-
+        mDiskIO.execute(() -> mTasksDao.updateTask(task));
     }
 
     @Override
     public void deleteTask(@NonNull String taskId) {
-
+        mDiskIO.execute(() -> mTasksDao.deleteTaskById(taskId));
     }
 
     @Override
     public void deleteAllTasks() {
-
+        mDiskIO.execute(mTasksDao::deleteTasks);
     }
 
     @Override
     public void completedTask(@NonNull String taskId, boolean completed) {
-
+        mDiskIO.execute(() -> mTasksDao.updateCompleted(taskId, completed));
     }
 
     @Override
     public void clearCompletedTask() {
-
+        mDiskIO.execute(mTasksDao::deleteCompletedTasks);
     }
 
     @Override
-    public void refresh(@NonNull List<Task> tasks) {
+    public void setTasks(@NonNull List<Task> tasks) {
         deleteAllTasks();
         for (Task task : tasks){
             saveTask(task);

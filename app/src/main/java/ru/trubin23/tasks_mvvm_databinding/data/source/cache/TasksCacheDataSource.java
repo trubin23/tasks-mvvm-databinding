@@ -13,7 +13,7 @@ import ru.trubin23.tasks_mvvm_databinding.data.Task;
 
 public interface TasksCacheDataSource {
 
-    void refresh(@NonNull List<Task> tasks);
+    void setTasks(@NonNull List<Task> tasks);
 
     void irrelevantState();
 
@@ -24,4 +24,10 @@ public interface TasksCacheDataSource {
     Task getTaskById(@NonNull String taskId);
 
     void addTask(@NonNull Task task);
+
+    void removeTask(@NonNull String taskId);
+
+    void completedTask(@NonNull String taskId, boolean completed);
+
+    void clearCompletedTask();
 }

@@ -15,5 +15,5 @@ public interface TasksLocalDataSource extends TasksDataSource{
 
     void deleteAllTasks();
 
-    void refresh(@NonNull List<Task> tasks);
+    void setTasks(@NonNull List<Task> tasks);
 }

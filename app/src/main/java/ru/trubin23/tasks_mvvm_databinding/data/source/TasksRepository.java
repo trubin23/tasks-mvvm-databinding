@@ -60,7 +60,7 @@ public class TasksRepository implements TasksMainDataSource {
         mTasksLocalDataSource.getTasks(new LoadTasksCallback() {
             @Override
             public void onTasksLoaded(@NonNull List<Task> tasks) {
-                mTasksCacheDataSource.refresh(tasks);
+                mTasksCacheDataSource.setTasks(tasks);
                 callback.onTasksLoaded(tasks);
             }
 
@@ -80,8 +80,8 @@ public class TasksRepository implements TasksMainDataSource {
         mTasksRemoteDataSource.getTasks(new LoadTasksCallback() {
             @Override
             public void onTasksLoaded(@NonNull List<Task> tasks) {
-                mTasksCacheDataSource.refresh(tasks);
-                mTasksLocalDataSource.refresh(tasks);
+                mTasksCacheDataSource.setTasks(tasks);
+                mTasksLocalDataSource.setTasks(tasks);
                 mForceRefresh = false;
                 callback.onTasksLoaded(tasks);
             }
@@ -139,27 +139,37 @@ public class TasksRepository implements TasksMainDataSource {
 
     @Override
     public void saveTask(@NonNull Task task) {
-
+        mTasksRemoteDataSource.saveTask(task);
+        mTasksLocalDataSource.saveTask(task);
+        mTasksCacheDataSource.addTask(task);
     }
 
     @Override
     public void updateTask(@NonNull Task task) {
-
+        mTasksRemoteDataSource.updateTask(task);
+        mTasksLocalDataSource.updateTask(task);
+        mTasksCacheDataSource.addTask(task);
     }
 
     @Override
     public void deleteTask(@NonNull String taskId) {
-
+        mTasksRemoteDataSource.deleteTask(taskId);
+        mTasksLocalDataSource.deleteTask(taskId);
+        mTasksCacheDataSource.removeTask(taskId);
     }
 
     @Override
     public void completedTask(@NonNull String taskId, boolean completed) {
-
+        mTasksRemoteDataSource.completedTask(taskId, completed);
+        mTasksLocalDataSource.completedTask(taskId, completed);
+        mTasksCacheDataSource.completedTask(taskId, completed);
     }
 
     @Override
     public void clearCompletedTask() {
-
+        mTasksRemoteDataSource.clearCompletedTask();
+        mTasksLocalDataSource.clearCompletedTask();
+        mTasksCacheDataSource.clearCompletedTask();
     }
 
     @Override

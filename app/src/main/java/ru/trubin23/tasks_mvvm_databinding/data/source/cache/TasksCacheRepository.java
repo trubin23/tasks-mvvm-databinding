@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class TasksCacheRepository implements TasksCacheDataSource {
     }
 
     @Override
-    public void refresh(@NonNull List<Task> tasks) {
+    public void setTasks(@NonNull List<Task> tasks) {
         if (mCachedTask == null) {
             mCachedTask = new LinkedHashMap<>();
         }
@@ -85,5 +86,38 @@ public class TasksCacheRepository implements TasksCacheDataSource {
             mCachedTask = new LinkedHashMap<>();
         }
         mCachedTask.put(task.getTaskId(), task);
+    }
+
+    @Override
+    public void removeTask(@NonNull String taskId) {
+        if (mCachedTask != null) {
+            mCachedTask.remove(taskId);
+        }
+    }
+
+    @Override
+    public void completedTask(@NonNull String taskId, boolean completed) {
+        Task task = getTaskById(taskId);
+        if (task != null){
+            Task cacheTask = new Task(task.getTitle(), task.getDescription(),
+                    task.getTaskId(), task.getDateOfCreation(),
+                    completed, task.getDateOfChange());
+            addTask(cacheTask);
+        }
+    }
+
+    @Override
+    public void clearCompletedTask() {
+        if (mCachedTask == null){
+            mCachedTask = new LinkedHashMap<>();
+        }
+
+        Iterator<Map.Entry<String, Task>> iterator = mCachedTask.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String, Task> entry = iterator.next();
+            if (entry.getValue().isCompleted()){
+                iterator.remove();
+            }
+        }
     }
 }
