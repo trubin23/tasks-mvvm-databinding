@@ -2,8 +2,12 @@ package ru.trubin23.tasks_mvvm_databinding.tasks;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 
+import ru.trubin23.tasks_mvvm_databinding.data.Task;
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
 /**
@@ -12,6 +16,8 @@ import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
 public class TasksViewModel extends BaseObservable {
 
+    public final ObservableList<Task> mTasks = new ObservableArrayList<>();
+
     private TasksRepository mTasksRepository;
     private Context mContext;
 
@@ -19,4 +25,11 @@ public class TasksViewModel extends BaseObservable {
         mTasksRepository = repository;
         mContext = context.getApplicationContext();
     }
+
+    @Bindable
+    public boolean isEmpty(){
+        return mTasks.isEmpty();
+    }
+
+
 }

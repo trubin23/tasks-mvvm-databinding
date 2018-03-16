@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="ViewModel"
-            type="ru.trubin23.tasks_mvvm_databinding.tasks.TasksViewModel"/>
+            type="ru.trubin23.tasks_mvvm_databinding.tasks.TasksViewModel" />
 
     </data>
 
@@ -13,6 +16,37 @@
         android:id="@+id/tasks_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/tasks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{ViewModel.empty ? View.GONE : View.VISIBLE}">
+
+            <TextView
+                android:id="@+id/filtering_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <ListView
+                android:id="@+id/tasks_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:items="@{ViewModel.mTasks}"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/no_tasks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{ViewModel.empty ? View.VISIBLE : View.GONE}">
+
+        </LinearLayout>
 
     </RelativeLayout>
 
