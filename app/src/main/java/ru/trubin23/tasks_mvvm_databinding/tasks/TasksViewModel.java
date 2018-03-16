@@ -10,7 +10,7 @@ import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
  * Created by Andrey on 11.03.2018.
  */
 
-class TasksViewModel extends BaseObservable {
+public class TasksViewModel extends BaseObservable {
 
     private TasksRepository mTasksRepository;
     private Context mContext;
