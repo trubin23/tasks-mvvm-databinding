@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 
@@ -17,6 +18,8 @@ import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 public class TasksViewModel extends BaseObservable {
 
     public final ObservableList<Task> mTasks = new ObservableArrayList<>();
+
+    public final ObservableField<String> currentFilteringLabel = new ObservableField<>();
 
     private TasksRepository mTasksRepository;
     private Context mContext;
