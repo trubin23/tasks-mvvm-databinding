@@ -1,13 +1,13 @@
 package ru.trubin23.tasks_mvvm_databinding.tasks;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import ru.trubin23.tasks_mvvm_databinding.Injection;
-import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
+import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
 public class TasksActivity extends AppCompatActivity {
 

@@ -4,7 +4,6 @@ import android.databinding.BindingAdapter;
 import android.widget.ListView;
 
 import java.util.List;
-import java.util.TreeSet;
 
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
 
@@ -15,7 +14,10 @@ import ru.trubin23.tasks_mvvm_databinding.data.Task;
 public class TasksListBindings {
 
     @BindingAdapter("app:items")
-    public static void setItems(ListView listView, List<Task> items){
-
+    public static void setItems(ListView listView, List<Task> items) {
+        TasksAdapter adapter = (TasksAdapter) listView.getAdapter();
+        if (adapter != null) {
+            adapter.setTasks(items);
+        }
     }
 }

@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
-import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
 /**
  * Created by Andrey on 16.03.2018.
@@ -16,13 +15,11 @@ import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
 public class TaskItemViewModel extends BaseObservable {
 
-    private final TasksRepository mTasksRepository;
     private final Context mContext;
 
     private final ObservableField<Task> mTaskObservable = new ObservableField<>();
 
-    TaskItemViewModel(TasksRepository tasksRepository, Context context) {
-        mTasksRepository = tasksRepository;
+    TaskItemViewModel(@NonNull Context context) {
         mContext = context;
     }
 
@@ -43,7 +40,7 @@ public class TaskItemViewModel extends BaseObservable {
     @Bindable
     public String getTitleForItem() {
         Task task = mTaskObservable.get();
-        if (task == null){
+        if (task == null) {
             return mContext.getString(R.string.no_data);
         }
         return task.getTitle();

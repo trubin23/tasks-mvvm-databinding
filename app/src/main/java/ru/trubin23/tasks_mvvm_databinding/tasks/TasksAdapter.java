@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
-import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 import ru.trubin23.tasks_mvvm_databinding.databinding.TaskItemBinding;
 
 /**
@@ -20,11 +20,10 @@ import ru.trubin23.tasks_mvvm_databinding.databinding.TaskItemBinding;
 public class TasksAdapter extends BaseAdapter {
 
     private List<Task> mTasks;
-    private TasksRepository mTasksRepository;
 
-    public TasksAdapter(@NonNull List<Task> tasks, @NonNull TasksRepository tasksRepository) {
-        mTasks = tasks;
-        mTasksRepository = tasksRepository;
+    TasksAdapter() {
+        mTasks = new ArrayList<>();
+        setTasks(mTasks);
     }
 
     @Override
@@ -55,7 +54,6 @@ public class TasksAdapter extends BaseAdapter {
         }
 
         TaskItemViewModel taskItemViewModel = new TaskItemViewModel(
-                mTasksRepository,
                 viewGroup.getContext().getApplicationContext()
         );
 
@@ -64,5 +62,10 @@ public class TasksAdapter extends BaseAdapter {
         taskItemViewModel.setTask(task);
 
         return taskItemBinding.getRoot();
+    }
+
+    public void setTasks(@NonNull List<Task> tasks){
+        mTasks = tasks;
+        notifyDataSetChanged();
     }
 }

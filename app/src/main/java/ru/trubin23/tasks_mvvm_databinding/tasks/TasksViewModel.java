@@ -35,4 +35,7 @@ public class TasksViewModel extends BaseObservable {
     }
 
 
+    void loadTasks(boolean forceUpdate) {
+
+    }
 }

@@ -7,8 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-import ru.trubin23.tasks_mvvm_databinding.data.Task;
 import ru.trubin23.tasks_mvvm_databinding.databinding.TasksFragBinding;
 
 /**
@@ -33,7 +33,28 @@ public class TasksFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setupListAdapter();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mTasksViewModel.loadTasks();
+    }
+
     public void setViewModel(@NonNull TasksViewModel viewModel) {
         mTasksViewModel = viewModel;
+    }
+
+    private void setupListAdapter() {
+        ListView listView = mTasksFragBinding.tasksList;
+
+        TasksAdapter tasksAdapter = new TasksAdapter();
+
+        listView.setAdapter(tasksAdapter);
     }
 }
