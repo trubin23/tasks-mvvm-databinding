@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">tasks-mvvm-databinding</string>
+    <string name="no_data">No data</string>
 </resources>
