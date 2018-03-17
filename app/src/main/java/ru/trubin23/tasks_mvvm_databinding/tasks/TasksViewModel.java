@@ -17,12 +17,12 @@ import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
 public class TasksViewModel extends BaseObservable {
 
+    private final TasksRepository mTasksRepository;
+    private final Context mContext;
+
     public final ObservableList<Task> mTasks = new ObservableArrayList<>();
 
     public final ObservableField<String> currentFilteringLabel = new ObservableField<>();
-
-    private TasksRepository mTasksRepository;
-    private Context mContext;
 
     TasksViewModel(@NonNull TasksRepository repository, @NonNull Context context) {
         mTasksRepository = repository;
