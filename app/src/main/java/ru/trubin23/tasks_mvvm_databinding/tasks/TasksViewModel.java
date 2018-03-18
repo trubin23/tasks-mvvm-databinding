@@ -6,6 +6,7 @@ import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -22,19 +23,28 @@ import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 public class TasksViewModel extends BaseObservable {
 
     private final TasksRepository mTasksRepository;
+
     private final Context mContext;
+
+    private TasksFilterType mCurrentFilterType = TasksFilterType.ALL_TASKS;
 
     public final ObservableList<Task> mTasks = new ObservableArrayList<>();
 
-    public final ObservableField<String> currentFilteringLabel = new ObservableField<>();
+    public final ObservableField<String> mCurrentFilteringLabel = new ObservableField<>();
+
+    public final ObservableField<Drawable> mNoTaskIconRes = new ObservableField<>();
+
+    public final ObservableField<String> mNoTasksLabel = new ObservableField<>();
 
     TasksViewModel(@NonNull TasksRepository repository, @NonNull Context context) {
         mTasksRepository = repository;
         mContext = context.getApplicationContext();
+
+        setFiltering(TasksFilterType.ALL_TASKS);
     }
 
     @Bindable
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return mTasks.isEmpty();
     }
 
@@ -56,5 +66,18 @@ public class TasksViewModel extends BaseObservable {
 
             }
         });
+    }
+
+    private void setFiltering(@NonNull TasksFilterType filterType) {
+        mCurrentFilterType = filterType;
+
+        switch (filterType) {
+            case ACTIVE_TASKS:
+                break;
+            case COMPLETED_TASKS:
+                break;
+            case ALL_TASKS:
+                break;
+        }
     }
 }

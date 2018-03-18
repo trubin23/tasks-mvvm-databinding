@@ -29,8 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:text="@{ViewModel.currentFilteringLabel}"/>
+                android:text="@{ViewModel.mCurrentFilteringLabel}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <ListView
                 android:id="@+id/tasks_list"
@@ -44,8 +44,22 @@
             android:id="@+id/no_tasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:orientation="vertical"
             android:visibility="@{ViewModel.empty ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                android:id="@+id/no_tasks_icon"
+                android:layout_width="@dimen/no_tasks_icon_size"
+                android:layout_height="@dimen/no_tasks_icon_size"
+                android:layout_gravity="center"
+                android:src="@{ViewModel.mNoTaskIconRes}" />
+
+            <TextView
+                android:id="@+id/no_tasks_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{ViewModel.mNoTasksLabel}" />
 
         </LinearLayout>
 
