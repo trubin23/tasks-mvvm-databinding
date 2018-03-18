@@ -16,24 +16,24 @@ import retrofit2.http.Path;
 
 interface RemoteService {
 
-    @GET("/api_dagger/tasks")
+    @GET("/api_databinding/tasks")
     Call<List<NetworkTask>> getTasks();
 
-    @GET("/api_dagger/tasks/{id}")
+    @GET("/api_databinding/tasks/{id}")
     Call<NetworkTask> getTask(@Path("id") String id);
 
-    @POST("/api_dagger/tasks")
+    @POST("/api_databinding/tasks")
     Call<NetworkTask> addTask(@Body NetworkTask task);
 
-    @PUT("/api_dagger/tasks/{id}")
+    @PUT("/api_databinding/tasks/{id}")
     Call<NetworkTask> updateTask(@Path("id") String id, @Body NetworkTask task);
 
-    @PUT("/api_dagger/tasks/{id}")
+    @PUT("/api_databinding/tasks/{id}")
     Call<NetworkTask> completeTask(@Path("id") String id, @Body StatusOfTask task);
 
-    @DELETE("/api_dagger/tasks/{id}")
+    @DELETE("/api_databinding/tasks/{id}")
     Call<NetworkTask> deleteTask(@Path("id") String id);
 
-    @DELETE("/api_dagger/tasks/completed")
+    @DELETE("/api_databinding/tasks/completed")
     Call<Integer> deleteCompletedTasks();
 }

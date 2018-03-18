@@ -43,7 +43,7 @@ public class TasksFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mTasksViewModel.loadTasks();
+        mTasksViewModel.loadTasks(true);
     }
 
     public void setViewModel(@NonNull TasksViewModel viewModel) {

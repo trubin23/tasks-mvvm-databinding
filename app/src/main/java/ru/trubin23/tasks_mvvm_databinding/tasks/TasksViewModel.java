@@ -8,7 +8,11 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
+import ru.trubin23.tasks_mvvm_databinding.BR;
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
+import ru.trubin23.tasks_mvvm_databinding.data.source.TasksDataSource;
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
 /**
@@ -34,8 +38,23 @@ public class TasksViewModel extends BaseObservable {
         return mTasks.isEmpty();
     }
 
-
     void loadTasks(boolean forceUpdate) {
+        if (forceUpdate) {
+            mTasksRepository.refreshTasks();
+        }
 
+        mTasksRepository.getTasks(new TasksDataSource.LoadTasksCallback() {
+            @Override
+            public void onTasksLoaded(@NonNull List<Task> tasks) {
+                mTasks.clear();
+                mTasks.addAll(tasks);
+                notifyPropertyChanged(BR.empty);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
     }
 }
