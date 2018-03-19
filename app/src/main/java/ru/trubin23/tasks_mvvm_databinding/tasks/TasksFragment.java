@@ -26,6 +26,8 @@ public class TasksFragment extends Fragment {
 
     private TasksFragBinding mTasksFragBinding;
 
+    private TasksAdapter mTasksAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +51,12 @@ public class TasksFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mTasksViewModel.loadTasks(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        mTasksAdapter.destroy();
+        super.onDestroy();
     }
 
     @Override
@@ -106,8 +114,8 @@ public class TasksFragment extends Fragment {
     private void setupListAdapter() {
         ListView listView = mTasksFragBinding.tasksList;
 
-        TasksAdapter tasksAdapter = new TasksAdapter();
+        mTasksAdapter = new TasksAdapter((TasksActivity) getActivity());
 
-        listView.setAdapter(tasksAdapter);
+        listView.setAdapter(mTasksAdapter);
     }
 }

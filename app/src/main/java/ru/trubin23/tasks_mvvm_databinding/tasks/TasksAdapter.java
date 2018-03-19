@@ -20,11 +20,18 @@ import ru.trubin23.tasks_mvvm_databinding.databinding.TaskItemBinding;
 
 public class TasksAdapter extends BaseAdapter {
 
+    private TaskItemNavigator mTaskItemNavigator;
+
     private List<Task> mTasks;
 
-    TasksAdapter() {
+    TasksAdapter(@NonNull TaskItemNavigator taskItemNavigator) {
+        mTaskItemNavigator = taskItemNavigator;
         mTasks = new ArrayList<>();
         setTasks(mTasks);
+    }
+
+    void destroy() {
+        mTaskItemNavigator = null;
     }
 
     @Override
@@ -67,7 +74,7 @@ public class TasksAdapter extends BaseAdapter {
         return taskItemBinding.getRoot();
     }
 
-    public void setTasks(@NonNull List<Task> tasks){
+    public void setTasks(@NonNull List<Task> tasks) {
         mTasks = tasks;
         notifyDataSetChanged();
     }
