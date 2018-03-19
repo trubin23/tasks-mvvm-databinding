@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
+import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
 /**
  * Created by Andrey on 16.03.2018.
@@ -15,11 +16,14 @@ import ru.trubin23.tasks_mvvm_databinding.data.Task;
 
 public class TaskItemViewModel extends BaseObservable {
 
+    private TasksRepository mTasksRepository;
     private final Context mContext;
 
     private final ObservableField<Task> mTaskObservable = new ObservableField<>();
 
-    TaskItemViewModel(@NonNull Context context) {
+    TaskItemViewModel(@NonNull TasksRepository tasksRepository,
+                      @NonNull Context context) {
+        mTasksRepository = tasksRepository;
         mContext = context;
     }
 
@@ -35,6 +39,11 @@ public class TaskItemViewModel extends BaseObservable {
     public boolean getCompleted() {
         Task task = mTaskObservable.get();
         return task != null && task.isCompleted();
+    }
+
+    public void setCompleted(boolean completed) {
+        Task task = mTaskObservable.get();
+        mTasksRepository.completedTask(task.getTaskId(), completed);
     }
 
     @Bindable

@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
 import ru.trubin23.tasks_mvvm_databinding.databinding.TaskItemBinding;
 
@@ -54,6 +55,8 @@ public class TasksAdapter extends BaseAdapter {
         }
 
         TaskItemViewModel taskItemViewModel = new TaskItemViewModel(
+                Injection.provideTasksRepository(
+                        viewGroup.getContext().getApplicationContext()),
                 viewGroup.getContext().getApplicationContext()
         );
 
