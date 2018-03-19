@@ -5,10 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
+import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.databinding.TasksFragBinding;
 
 /**
@@ -28,9 +33,9 @@ public class TasksFragment extends Fragment {
 
         mTasksFragBinding.setViewModel(mTasksViewModel);
 
-        View root = mTasksFragBinding.getRoot();
+        setHasOptionsMenu(true);
 
-        return root;
+        return mTasksFragBinding.getRoot();
     }
 
     @Override
@@ -44,6 +49,54 @@ public class TasksFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mTasksViewModel.loadTasks(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.tasks_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_filter:
+                showFilteringPopupMenu();
+                break;
+            case R.id.menu_clear:
+                mTasksViewModel.clearCompletedTasks();
+                break;
+            case R.id.menu_refresh:
+                mTasksViewModel.loadTasks(true);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showFilteringPopupMenu() {
+        PopupMenu popupMenu = new PopupMenu(
+                getContext(), getActivity().findViewById(R.id.menu_filter));
+        popupMenu.getMenuInflater().inflate(R.menu.filter_tasks, popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.tasks_active:
+                    mTasksViewModel.setFiltering(TasksFilterType.ACTIVE_TASKS);
+                    break;
+                case R.id.tasks_completed:
+                    mTasksViewModel.setFiltering(TasksFilterType.COMPLETED_TASKS);
+                    break;
+                case R.id.tasks_all:
+                    mTasksViewModel.setFiltering(TasksFilterType.ALL_TASKS);
+                    break;
+                default:
+                    return false;
+            }
+
+            mTasksViewModel.loadTasks(false);
+            return true;
+        });
+
+        popupMenu.show();
     }
 
     public void setViewModel(@NonNull TasksViewModel viewModel) {

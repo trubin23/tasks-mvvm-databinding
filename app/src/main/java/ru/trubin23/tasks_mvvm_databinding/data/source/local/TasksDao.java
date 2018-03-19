@@ -26,6 +26,9 @@ public interface TasksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTask(Task task);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTasks(List<Task> tasks);
+
     @Update
     int updateTask(Task task);
 

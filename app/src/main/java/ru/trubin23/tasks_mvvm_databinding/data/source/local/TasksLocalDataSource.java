@@ -13,7 +13,5 @@ import ru.trubin23.tasks_mvvm_databinding.data.source.TasksDataSource;
 
 public interface TasksLocalDataSource extends TasksDataSource{
 
-    void deleteAllTasks();
-
     void setTasks(@NonNull List<Task> tasks);
 }

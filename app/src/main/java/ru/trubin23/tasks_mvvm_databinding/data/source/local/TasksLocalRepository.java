@@ -78,11 +78,6 @@ public class TasksLocalRepository implements TasksLocalDataSource {
     }
 
     @Override
-    public void deleteAllTasks() {
-        mDiskIO.execute(mTasksDao::deleteTasks);
-    }
-
-    @Override
     public void completedTask(@NonNull String taskId, boolean completed) {
         mDiskIO.execute(() -> mTasksDao.updateCompleted(taskId, completed));
     }
@@ -94,9 +89,9 @@ public class TasksLocalRepository implements TasksLocalDataSource {
 
     @Override
     public void setTasks(@NonNull List<Task> tasks) {
-        deleteAllTasks();
-        for (Task task : tasks){
-            saveTask(task);
-        }
+        mDiskIO.execute(() -> {
+            mTasksDao.deleteTasks();
+            mTasksDao.insertTasks(tasks);
+        });
     }
 }

@@ -94,7 +94,7 @@ public class TasksViewModel extends BaseObservable {
         });
     }
 
-    private void setFiltering(@NonNull TasksFilterType filterType) {
+    void setFiltering(@NonNull TasksFilterType filterType) {
         mCurrentFilterType = filterType;
 
         switch (filterType) {
@@ -114,5 +114,10 @@ public class TasksViewModel extends BaseObservable {
                 mNoTaskIconRes.set(mContext.getDrawable(R.drawable.ic_verified));
                 break;
         }
+    }
+
+    void clearCompletedTasks() {
+        mTasksRepository.clearCompletedTask();
+        loadTasks(false);
     }
 }
