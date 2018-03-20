@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvvm_databinding.tasks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
+import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailActivity;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
 public class TasksActivity extends AppCompatActivity
@@ -64,7 +66,9 @@ public class TasksActivity extends AppCompatActivity
 
     @Override
     public void showTaskDetail(@NonNull String taskId) {
-
+        Intent intent = new Intent(this, TaskDetailActivity.class);
+        intent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId);
+        startActivity(intent);
     }
 
     @Override
