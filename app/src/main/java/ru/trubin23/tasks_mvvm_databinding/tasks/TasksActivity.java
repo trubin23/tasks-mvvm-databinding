@@ -50,7 +50,8 @@ public class TasksActivity extends AppCompatActivity
         } else {
             TasksViewModel viewModel = new TasksViewModel(
                     Injection.provideTasksRepository(getApplicationContext()),
-                    getApplicationContext()
+                    getApplicationContext(),
+                    this
             );
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),

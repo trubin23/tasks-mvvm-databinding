@@ -3,6 +3,7 @@ package ru.trubin23.tasks_mvvm_databinding.tasks;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,6 +44,8 @@ public class TasksFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        setupFab();
 
         setupListAdapter();
     }
@@ -109,6 +112,12 @@ public class TasksFragment extends Fragment {
 
     public void setViewModel(@NonNull TasksViewModel viewModel) {
         mTasksViewModel = viewModel;
+    }
+
+    private void setupFab() {
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_task);
+
+        fab.setOnClickListener(v -> mTasksViewModel.addNewTask());
     }
 
     private void setupListAdapter() {
