@@ -7,4 +7,10 @@ import android.support.v4.app.Fragment;
  */
 
 public class TaskDetailFragment extends Fragment {
+
+    private TaskDetailViewModel mViewModel;
+
+    public void setViewModel(TaskDetailViewModel viewModel) {
+        mViewModel = viewModel;
+    }
 }
