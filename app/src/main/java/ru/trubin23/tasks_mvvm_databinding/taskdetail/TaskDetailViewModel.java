@@ -18,6 +18,7 @@ public class TaskDetailViewModel extends BaseObservable {
     private final TasksRepository mTasksRepository;
 
     private final Context mContext;
+    private TaskDetailNavigator mNavigator;
 
     TaskDetailViewModel(@NonNull TasksRepository repository, @NonNull Context context) {
         mTasksRepository = repository;
@@ -38,5 +39,9 @@ public class TaskDetailViewModel extends BaseObservable {
                 }
             });
         }
+    }
+
+    void setNavigator(TaskDetailNavigator navigator) {
+        mNavigator = navigator;
     }
 }
