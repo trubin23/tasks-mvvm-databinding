@@ -16,6 +16,7 @@ import android.widget.PopupMenu;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.databinding.TasksFragBinding;
+import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailFragment;
 
 /**
  * Created by Andrey on 11.03.2018.
@@ -28,6 +29,13 @@ public class TasksFragment extends Fragment {
     private TasksFragBinding mTasksFragBinding;
 
     private TasksAdapter mTasksAdapter;
+
+    public TasksFragment() {
+    }
+
+    public static TasksFragment newInstance() {
+        return new TasksFragment();
+    }
 
     @Nullable
     @Override
