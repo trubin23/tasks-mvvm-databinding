@@ -13,4 +13,6 @@
     <string name="tasks_active">Active</string>
     <string name="tasks_completed">Completed</string>
     <string name="tasks_all">All</string>
+
+    <string name="menu_delete_task">Delete task</string>
 </resources>
