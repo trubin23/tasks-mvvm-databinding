@@ -1,15 +1,20 @@
 <resources>
     <string name="app_name">tasks-mvvm-databinding</string>
+
     <string name="no_data">No data</string>
+
     <string name="label_active">Active tasks</string>
     <string name="label_completed">Completed tasks</string>
     <string name="label_all">All tasks</string>
+
     <string name="no_tasks_active">You have no active tasks!</string>
     <string name="no_tasks_completed">You have no completed tasks!</string>
     <string name="no_tasks_all">You have no tasks!</string>
+
     <string name="menu_filter">Filter</string>
     <string name="menu_clear">Clear completed</string>
     <string name="menu_refresh">Refresh</string>
+
     <string name="tasks_active">Active</string>
     <string name="tasks_completed">Completed</string>
     <string name="tasks_all">All</string>

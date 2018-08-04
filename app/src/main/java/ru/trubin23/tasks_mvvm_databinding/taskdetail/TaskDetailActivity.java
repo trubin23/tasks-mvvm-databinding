@@ -30,11 +30,13 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
 
     @NonNull
     private TaskDetailFragment findOrCreateFragment() {
+        String taskId = getIntent().getStringExtra(EXTRA_TASK_ID);
+
         TaskDetailFragment taskDetailFragment =
                 (TaskDetailFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.content_frame);
         if (taskDetailFragment == null) {
-            taskDetailFragment = new TaskDetailFragment();
+            taskDetailFragment = TaskDetailFragment.newInstance(taskId);
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     taskDetailFragment, R.id.content_frame);
         }
