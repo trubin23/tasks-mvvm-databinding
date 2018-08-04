@@ -4,6 +4,10 @@ import android.support.v4.app.Fragment;
 
 public class AddEditTaskFragment extends Fragment {
 
+    private AddEditTaskViewModel mViewModel;
+
+    private AddEditTaskFragBinding mAddEditTaskFragBinding;
+
     public AddEditTaskFragment() {
     }
 

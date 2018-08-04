@@ -16,7 +16,6 @@ import android.widget.PopupMenu;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.databinding.TasksFragBinding;
-import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailFragment;
 
 /**
  * Created by Andrey on 11.03.2018.
@@ -24,7 +23,7 @@ import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailFragment;
 
 public class TasksFragment extends Fragment {
 
-    private TasksViewModel mTasksViewModel;
+    private TasksViewModel mViewModel;
 
     private TasksFragBinding mTasksFragBinding;
 
@@ -42,7 +41,7 @@ public class TasksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mTasksFragBinding = TasksFragBinding.inflate(inflater, container, false);
 
-        mTasksFragBinding.setViewModel(mTasksViewModel);
+        mTasksFragBinding.setViewModel(mViewModel);
 
         setHasOptionsMenu(true);
 
@@ -61,7 +60,7 @@ public class TasksFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mTasksViewModel.loadTasks(true);
+        mViewModel.loadTasks(true);
     }
 
     @Override
@@ -82,10 +81,10 @@ public class TasksFragment extends Fragment {
                 showFilteringPopupMenu();
                 break;
             case R.id.menu_clear:
-                mTasksViewModel.clearCompletedTasks();
+                mViewModel.clearCompletedTasks();
                 break;
             case R.id.menu_refresh:
-                mTasksViewModel.loadTasks(true);
+                mViewModel.loadTasks(true);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -99,19 +98,19 @@ public class TasksFragment extends Fragment {
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.tasks_active:
-                    mTasksViewModel.setFiltering(TasksFilterType.ACTIVE_TASKS);
+                    mViewModel.setFiltering(TasksFilterType.ACTIVE_TASKS);
                     break;
                 case R.id.tasks_completed:
-                    mTasksViewModel.setFiltering(TasksFilterType.COMPLETED_TASKS);
+                    mViewModel.setFiltering(TasksFilterType.COMPLETED_TASKS);
                     break;
                 case R.id.tasks_all:
-                    mTasksViewModel.setFiltering(TasksFilterType.ALL_TASKS);
+                    mViewModel.setFiltering(TasksFilterType.ALL_TASKS);
                     break;
                 default:
                     return false;
             }
 
-            mTasksViewModel.loadTasks(false);
+            mViewModel.loadTasks(false);
             return true;
         });
 
@@ -119,13 +118,13 @@ public class TasksFragment extends Fragment {
     }
 
     public void setViewModel(@NonNull TasksViewModel viewModel) {
-        mTasksViewModel = viewModel;
+        mViewModel = viewModel;
     }
 
     private void setupFab() {
         FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_task);
 
-        fab.setOnClickListener(v -> mTasksViewModel.addNewTask());
+        fab.setOnClickListener(v -> mViewModel.addNewTask());
     }
 
     private void setupListAdapter() {
