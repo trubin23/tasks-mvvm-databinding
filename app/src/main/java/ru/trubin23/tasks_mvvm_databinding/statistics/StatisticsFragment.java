@@ -2,7 +2,7 @@ package ru.trubin23.tasks_mvvm_databinding.statistics;
 
 import android.support.v4.app.Fragment;
 
-import ru.trubin23.tasks_mvvm_databinding.databinding.TasksFragBinding;
+import ru.trubin23.tasks_mvvm_databinding.databinding.StatisticsFragBinding;
 
 public class StatisticsFragment extends Fragment {
 

@@ -2,6 +2,8 @@ package ru.trubin23.tasks_mvvm_databinding.addedittask;
 
 import android.support.v4.app.Fragment;
 
+import ru.trubin23.tasks_mvvm_databinding.databinding.AddEditTaskFragBinding;
+
 public class AddEditTaskFragment extends Fragment {
 
     private AddEditTaskViewModel mViewModel;
