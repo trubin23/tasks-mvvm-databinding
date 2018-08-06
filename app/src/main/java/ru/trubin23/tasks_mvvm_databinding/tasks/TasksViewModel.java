@@ -131,4 +131,12 @@ public class TasksViewModel extends BaseObservable {
             mTasksNavigator.get().showAddTask();
         }
     }
+
+    public void onActivityDestroyed() {
+        mTasksNavigator = null;
+    }
+
+    public void handleActivityResult(int requestCode, int resultCode) {
+
+    }
 }

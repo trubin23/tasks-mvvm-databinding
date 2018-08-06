@@ -16,6 +16,8 @@ public class TasksActivity extends AppCompatActivity
 
     private static final String TASKS_VIEWMODEL_TAG = "TASKS_VIEWMODEL_TAG";
 
+    private TasksViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,9 +25,20 @@ public class TasksActivity extends AppCompatActivity
 
         TasksFragment tasksFragment = findOrCreateFragment();
 
-        TasksViewModel viewModel = findOrCreateViewModel();
+        mViewModel = findOrCreateViewModel();
 
-        tasksFragment.setViewModel(viewModel);
+        tasksFragment.setViewModel(mViewModel);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mViewModel.onActivityDestroyed();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mViewModel.handleActivityResult(requestCode, resultCode);
     }
 
     @NonNull
