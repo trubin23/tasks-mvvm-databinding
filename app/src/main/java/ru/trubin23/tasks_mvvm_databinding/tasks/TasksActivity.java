@@ -3,7 +3,9 @@ package ru.trubin23.tasks_mvvm_databinding.tasks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toolbar;
 
 import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.R;
@@ -23,6 +25,8 @@ public class TasksActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tasks_act);
 
+        setupToolbar();
+
         TasksFragment tasksFragment = findOrCreateFragment();
 
         mViewModel = findOrCreateViewModel();
@@ -34,6 +38,14 @@ public class TasksActivity extends AppCompatActivity
     protected void onDestroy() {
         mViewModel.onActivityDestroyed();
         super.onDestroy();
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
