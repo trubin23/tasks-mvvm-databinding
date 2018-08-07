@@ -3,6 +3,8 @@ package ru.trubin23.tasks_mvvm_databinding.tasks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toolbar;
@@ -20,12 +22,16 @@ public class TasksActivity extends AppCompatActivity
 
     private TasksViewModel mViewModel;
 
+    private DrawerLayout mDrawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tasks_act);
 
         setupToolbar();
+
+        setupNavigationDrawer();
 
         TasksFragment tasksFragment = findOrCreateFragment();
 
@@ -44,8 +50,22 @@ public class TasksActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private void setupNavigationDrawer() {
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        NavigationView navigationView = findViewById(R.id.nav_view)
+        if (navigationView != null){
+            setupDrawerContent(navigationView);
+        }
+    }
+
+    public void setupDrawerContent(NavigationView upDrawerContent) {
     }
 
     @Override
