@@ -60,25 +60,22 @@ public class TasksActivity extends AppCompatActivity
     private void setupNavigationDrawer() {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
-        NavigationView navigationView = findViewById(R.id.nav_view)
+        NavigationView navigationView = findViewById(R.id.nav_view);
         if (navigationView != null){
             setupDrawerContent(navigationView);
         }
     }
 
     public void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    default:
-                        break;
-                }
-
-                item.setChecked(true);
-                mDrawerLayout.closeDrawers();
-                return true;
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                default:
+                    break;
             }
+
+            item.setChecked(true);
+            mDrawerLayout.closeDrawers();
+            return true;
         });
     }
 

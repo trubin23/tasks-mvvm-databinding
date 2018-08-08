@@ -20,4 +20,7 @@
     <string name="tasks_all">All</string>
 
     <string name="menu_delete_task">Delete task</string>
+
+    <string name="statistics">Statistics</string>
+    <string name="task_list">Task list</string>
 </resources>
