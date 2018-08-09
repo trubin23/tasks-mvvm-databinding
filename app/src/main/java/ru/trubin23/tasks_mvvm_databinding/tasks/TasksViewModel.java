@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.graphics.drawable.Drawable;
@@ -42,6 +43,8 @@ public class TasksViewModel extends BaseObservable {
 
     public final ObservableField<String> mNoTasksLabel = new ObservableField<>();
 
+    public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
+
     TasksViewModel(@NonNull TasksRepository repository, @NonNull Context context,
                    @Nullable TasksNavigator tasksNavigator) {
         mTasksRepository = repository;
@@ -56,7 +59,14 @@ public class TasksViewModel extends BaseObservable {
         return mTasks.isEmpty();
     }
 
-    public void loadTasks(boolean forceUpdate) {
+    public void loadTasks(boolean forceUpdate){
+        loadTasks(forceUpdate, true);
+    }
+
+    private void loadTasks(boolean forceUpdate, boolean showLoadingUI) {
+        if (showLoadingUI){
+            mDataLoading.set(true);
+        }
         if (forceUpdate) {
             mTasksRepository.refreshTasks();
         }
@@ -86,6 +96,9 @@ public class TasksViewModel extends BaseObservable {
                             break;
                     }
                 }
+                if (showLoadingUI){
+                    mDataLoading.set(false);
+                }
 
                 mTasks.clear();
                 mTasks.addAll(tasksToShow);
@@ -94,7 +107,9 @@ public class TasksViewModel extends BaseObservable {
 
             @Override
             public void onDataNotAvailable() {
-
+                if (showLoadingUI){
+                    mDataLoading.set(false);
+                }
             }
         });
     }
@@ -123,7 +138,7 @@ public class TasksViewModel extends BaseObservable {
 
     void clearCompletedTasks() {
         mTasksRepository.clearCompletedTask();
-        loadTasks(false);
+        loadTasks(false, false);
     }
 
     void addNewTask() {

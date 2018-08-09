@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:onRefresh="@{ViewModel}"
-        app:refreshing="@{ViewModel.dataLoading}">
+        app:refreshing="@{ViewModel.mDataLoading}">
 
         <LinearLayout
             android:id="@+id/tasks"
