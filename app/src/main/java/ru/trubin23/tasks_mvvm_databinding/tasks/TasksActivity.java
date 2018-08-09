@@ -78,7 +78,7 @@ public class TasksActivity extends AppCompatActivity
         }
     }
 
-    public void setupDrawerContent(NavigationView navigationView) {
+    private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.list_nav_menu_item:

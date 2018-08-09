@@ -1,6 +1,9 @@
 package ru.trubin23.tasks_mvvm_databinding.statistics;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.NavUtils;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,12 +12,16 @@ import ru.trubin23.tasks_mvvm_databinding.R;
 
 public class StatisticsActivity extends AppCompatActivity {
 
+    private DrawerLayout mDrawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.statistics_act);
 
         setupToolbar();
+
+        setupNavigationDrawer();
     }
 
     private void setupToolbar() {
@@ -26,5 +33,30 @@ public class StatisticsActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    private void setupNavigationDrawer() {
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.list_nav_menu_item:
+                    NavUtils.navigateUpFromSameTask(StatisticsActivity.this);
+                    break;
+                case R.id.statistics_nav_menu_item:
+                    break;
+            }
+
+            item.setChecked(true);
+            mDrawerLayout.closeDrawers();
+            return true;
+        });
     }
 }
