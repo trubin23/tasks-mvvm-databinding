@@ -1,6 +1,5 @@
 package ru.trubin23.tasks_mvvm_databinding.tasks;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;

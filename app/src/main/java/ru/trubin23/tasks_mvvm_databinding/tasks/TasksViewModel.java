@@ -45,6 +45,8 @@ public class TasksViewModel extends BaseObservable {
 
     public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
 
+    public final ObservableField<String> mSnackbarText = new ObservableField<>();
+
     TasksViewModel(@NonNull TasksRepository repository, @NonNull Context context,
                    @Nullable TasksNavigator tasksNavigator) {
         mTasksRepository = repository;

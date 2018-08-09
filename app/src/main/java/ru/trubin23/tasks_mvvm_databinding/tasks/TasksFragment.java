@@ -1,9 +1,11 @@
 package ru.trubin23.tasks_mvvm_databinding.tasks;
 
+import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +31,8 @@ public class TasksFragment extends Fragment {
 
     private TasksAdapter mTasksAdapter;
 
+    private Observable.OnPropertyChangedCallback mSnackbarCallback;
+
     public TasksFragment() {
     }
 
@@ -52,6 +56,8 @@ public class TasksFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setupSnackbar();
+
         setupFab();
 
         setupListAdapter();
@@ -66,6 +72,9 @@ public class TasksFragment extends Fragment {
     @Override
     public void onDestroy() {
         mTasksAdapter.destroy();
+        if (mSnackbarCallback != null){
+            mViewModel.mSnackbarText.removeOnPropertyChangedCallback(mSnackbarCallback);
+        }
         super.onDestroy();
     }
 
@@ -119,6 +128,15 @@ public class TasksFragment extends Fragment {
 
     public void setViewModel(@NonNull TasksViewModel viewModel) {
         mViewModel = viewModel;
+    }
+
+    private void setupSnackbar() {
+        mSnackbarCallback = new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+            }
+        };
+        mViewModel.mSnackbarText.addOnPropertyChangedCallback(mSnackbarCallback);
     }
 
     private void setupFab() {
