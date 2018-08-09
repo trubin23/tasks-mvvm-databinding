@@ -12,10 +12,12 @@
 
     </data>
 
-    <RelativeLayout
-        android:id="@+id/tasks_container"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:onRefresh="@{ViewModel}"
+        app:refreshing="@{ViewModel.dataLoading}">
 
         <LinearLayout
             android:id="@+id/tasks"
@@ -67,6 +69,6 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </layout>

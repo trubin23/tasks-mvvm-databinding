@@ -56,7 +56,7 @@ public class TasksViewModel extends BaseObservable {
         return mTasks.isEmpty();
     }
 
-    void loadTasks(boolean forceUpdate) {
+    public void loadTasks(boolean forceUpdate) {
         if (forceUpdate) {
             mTasksRepository.refreshTasks();
         }
