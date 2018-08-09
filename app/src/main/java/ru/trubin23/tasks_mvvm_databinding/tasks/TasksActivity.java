@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvvm_databinding.tasks;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,12 +15,19 @@ import android.view.MenuItem;
 import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
+import ru.trubin23.tasks_mvvm_databinding.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasks_mvvm_databinding.statistics.StatisticsActivity;
 import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailActivity;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
 public class TasksActivity extends AppCompatActivity
         implements TasksNavigator, TaskItemNavigator {
+
+    public static final int REQUEST_CODE = 1;
+
+    public static final int ADD_RESULT_OK = 1;
+    public static final int EDIT_RESULT_OK = 2;
+    public static final int DELETE_RESULT_OK = 3;
 
     private static final String TASKS_VIEWMODEL_TAG = "TASKS_VIEWMODEL_TAG";
 
@@ -139,11 +147,12 @@ public class TasksActivity extends AppCompatActivity
     public void showTaskDetail(@NonNull String taskId) {
         Intent intent = new Intent(this, TaskDetailActivity.class);
         intent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
     @Override
     public void showAddTask() {
-
+        Intent intent = new Intent(this, AddEditTaskActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 }

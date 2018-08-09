@@ -152,6 +152,17 @@ public class TasksViewModel extends BaseObservable {
     }
 
     public void handleActivityResult(int requestCode, int resultCode) {
+        if (TasksActivity.REQUEST_CODE != requestCode){
+            return;
+        }
 
+        switch (resultCode){
+            case TasksActivity.ADD_RESULT_OK:
+                break;
+            case TasksActivity.EDIT_RESULT_OK:
+                break;
+            case TasksActivity.DELETE_RESULT_OK:
+                break;
+        }
     }
 }
