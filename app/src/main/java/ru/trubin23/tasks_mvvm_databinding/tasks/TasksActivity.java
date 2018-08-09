@@ -13,6 +13,7 @@ import android.widget.Toolbar;
 import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
+import ru.trubin23.tasks_mvvm_databinding.statistics.StatisticsActivity;
 import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailActivity;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
@@ -69,7 +70,12 @@ public class TasksActivity extends AppCompatActivity
     public void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
-                default:
+                case R.id.list_nav_menu_item:
+                    break;
+                case R.id.statistics_nav_menu_item:
+                    Intent intent =
+                            new Intent(TasksActivity.this, StatisticsActivity.class);
+                    startActivity(intent);
                     break;
             }
 
