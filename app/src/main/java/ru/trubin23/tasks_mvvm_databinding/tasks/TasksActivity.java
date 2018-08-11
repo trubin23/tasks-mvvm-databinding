@@ -79,13 +79,11 @@ public class TasksActivity extends AppCompatActivity
     private void setupNavigationDrawer() {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        if (navigationView != null){
-            setupDrawerContent(navigationView);
-        }
-    }
 
-    private void setupDrawerContent(NavigationView navigationView) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        if (navigationView == null){
+            return;
+        }
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.list_nav_menu_item:

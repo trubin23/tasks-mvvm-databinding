@@ -14,6 +14,8 @@ import ru.trubin23.tasks_mvvm_databinding.R;
 
 public class StatisticsActivity extends AppCompatActivity {
 
+    private static final String STATS_VIEWMODEL_TAG = "STATS_VIEWMODEL_TAG";
+
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -40,13 +42,11 @@ public class StatisticsActivity extends AppCompatActivity {
     private void setupNavigationDrawer() {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
-    }
 
-    private void setupDrawerContent(NavigationView navigationView) {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        if (navigationView == null) {
+            return;
+        }
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.list_nav_menu_item:
@@ -67,7 +67,7 @@ public class StatisticsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
