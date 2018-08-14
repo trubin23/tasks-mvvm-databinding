@@ -44,4 +44,8 @@ public class TaskDetailViewModel extends BaseObservable {
     void setNavigator(TaskDetailNavigator navigator) {
         mNavigator = navigator;
     }
+
+    public void onActivityDestroyed() {
+        mNavigator = null;
+    }
 }

@@ -2,7 +2,9 @@ package ru.trubin23.tasks_mvvm_databinding.taskdetail;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.R;
@@ -15,10 +17,14 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
 
     private static final String TASKDETAIL_VIEWMODEL_TAG = "TASKDETAIL_VIEWMODEL_TAG";
 
+    private TaskDetailViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_detail_act);
+
+        setupToolbar();
 
         TaskDetailFragment taskDetailFragment = findOrCreateFragment();
 
@@ -26,6 +32,21 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
         taskDetailViewModel.setNavigator(this);
 
         taskDetailFragment.setViewModel(taskDetailViewModel);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mViewModel.onActivityDestroyed();
+        super.onDestroy();
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @NonNull
