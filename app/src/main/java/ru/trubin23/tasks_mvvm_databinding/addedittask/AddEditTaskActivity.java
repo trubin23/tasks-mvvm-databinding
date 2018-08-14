@@ -9,6 +9,8 @@ import ru.trubin23.tasks_mvvm_databinding.R;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
+    public static final String ADD_EDIT_TASK_ID = "ADD_EDIT_TASK_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

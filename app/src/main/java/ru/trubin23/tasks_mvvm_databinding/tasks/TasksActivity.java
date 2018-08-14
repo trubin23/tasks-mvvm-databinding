@@ -143,7 +143,7 @@ public class TasksActivity extends AppCompatActivity
     @Override
     public void showTaskDetail(@NonNull String taskId) {
         Intent intent = new Intent(this, TaskDetailActivity.class);
-        intent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId);
+        intent.putExtra(TaskDetailActivity.TASK_DETAIL_TASK_ID, taskId);
         startActivityForResult(intent, REQUEST_CODE);
     }
 

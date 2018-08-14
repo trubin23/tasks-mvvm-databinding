@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvvm_databinding.taskdetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
@@ -9,13 +10,16 @@ import android.support.v7.widget.Toolbar;
 import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
+import ru.trubin23.tasks_mvvm_databinding.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
 public class TaskDetailActivity extends AppCompatActivity implements TaskDetailNavigator {
 
-    public static final String EXTRA_TASK_ID = "TASK_ID";
+    public static final String TASK_DETAIL_TASK_ID = "TASK_DETAIL_TASK_ID";
 
     private static final String TASKDETAIL_VIEWMODEL_TAG = "TASKDETAIL_VIEWMODEL_TAG";
+
+    private static final int REQUEST_EDIT_TASK = 1;
 
     private TaskDetailViewModel mViewModel;
 
@@ -28,10 +32,10 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
 
         TaskDetailFragment taskDetailFragment = findOrCreateFragment();
 
-        TaskDetailViewModel taskDetailViewModel = findOrCreateViewModel();
-        taskDetailViewModel.setNavigator(this);
+        mViewModel = findOrCreateViewModel();
+        mViewModel.setNavigator(this);
 
-        taskDetailFragment.setViewModel(taskDetailViewModel);
+        taskDetailFragment.setViewModel(mViewModel);
     }
 
     @Override
@@ -51,11 +55,11 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
 
     @NonNull
     private TaskDetailFragment findOrCreateFragment() {
-        String taskId = getIntent().getStringExtra(EXTRA_TASK_ID);
+        String taskId = getIntent().getStringExtra(TASK_DETAIL_TASK_ID);
 
         TaskDetailFragment taskDetailFragment =
                 (TaskDetailFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.content_frame);
+                        .findFragmentById(R.id.content_frame);
         if (taskDetailFragment == null) {
             taskDetailFragment = TaskDetailFragment.newInstance(taskId);
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
@@ -94,6 +98,9 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
 
     @Override
     public void onStartEditTask() {
-
+        String taskId = getIntent().getStringExtra(TASK_DETAIL_TASK_ID);
+        Intent intent = new Intent(this, AddEditTaskActivity.class);
+        intent.putExtra(AddEditTaskActivity.ADD_EDIT_TASK_ID, taskId);
+        startActivityForResult(intent, REQUEST_EDIT_TASK);
     }
 }
