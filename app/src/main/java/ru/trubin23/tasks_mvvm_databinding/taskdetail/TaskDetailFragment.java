@@ -1,12 +1,17 @@
 package ru.trubin23.tasks_mvvm_databinding.taskdetail;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
+import ru.trubin23.tasks_mvvm_databinding.databinding.TaskDetailFragBinding;
 
 /**
  * Created by Andrey on 20.03.2018.
@@ -27,6 +32,19 @@ public class TaskDetailFragment extends Fragment {
         TaskDetailFragment taskDetailFragment = new TaskDetailFragment();
         taskDetailFragment.setArguments(arguments);
         return taskDetailFragment;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.task_detail_frag, container, false);
+
+        TaskDetailFragBinding viewDataBinding = TaskDetailFragBinding.bind(view);
+        viewDataBinding.setViewModel(mViewModel);
+
+        setHasOptionsMenu(true);
+
+        return view;
     }
 
     @Override
