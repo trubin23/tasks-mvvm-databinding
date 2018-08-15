@@ -48,4 +48,8 @@ public class TaskDetailViewModel extends BaseObservable {
     public void onActivityDestroyed() {
         mNavigator = null;
     }
+
+    public void startEditTask() {
+
+    }
 }

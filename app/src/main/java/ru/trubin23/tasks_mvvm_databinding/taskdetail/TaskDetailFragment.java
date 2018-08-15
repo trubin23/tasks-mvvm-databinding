@@ -2,6 +2,7 @@ package ru.trubin23.tasks_mvvm_databinding.taskdetail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,6 +46,18 @@ public class TaskDetailFragment extends Fragment {
         setHasOptionsMenu(true);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setupFab();
+    }
+
+    private void setupFab() {
+        FloatingActionButton floatingActionButton = getActivity().findViewById(R.id.fab_edit_task);
+        floatingActionButton.setOnClickListener(view -> mViewModel.startEditTask());
     }
 
     @Override
