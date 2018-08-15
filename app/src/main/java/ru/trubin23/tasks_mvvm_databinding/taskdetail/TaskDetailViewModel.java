@@ -2,6 +2,7 @@ package ru.trubin23.tasks_mvvm_databinding.taskdetail;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -17,7 +18,10 @@ public class TaskDetailViewModel extends BaseObservable {
 
     private final TasksRepository mTasksRepository;
 
+    private final ObservableField<Task> mTaskObservable = new ObservableField<>();
+
     private final Context mContext;
+
     private TaskDetailNavigator mNavigator;
 
     TaskDetailViewModel(@NonNull TasksRepository repository, @NonNull Context context) {
@@ -26,7 +30,7 @@ public class TaskDetailViewModel extends BaseObservable {
     }
 
     void start(@Nullable String taskId) {
-        if (taskId != null){
+        if (taskId != null) {
             mTasksRepository.getTask(taskId, new TasksDataSource.GetTaskCallback() {
                 @Override
                 public void onTaskLoaded(@NonNull Task task) {
@@ -50,6 +54,14 @@ public class TaskDetailViewModel extends BaseObservable {
     }
 
     public void startEditTask() {
+        if (mNavigator != null) {
+            mNavigator.onStartEditTask();
+        }
+    }
 
+    public void deleteTask() {
+        if (mNavigator != null) {
+            mNavigator.onTaskDeleted();
+        }
     }
 }

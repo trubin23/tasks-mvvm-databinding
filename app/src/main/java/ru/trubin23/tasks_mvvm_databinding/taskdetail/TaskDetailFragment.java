@@ -75,6 +75,7 @@ public class TaskDetailFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_delete:
+                mViewModel.deleteTask();
                 return true;
         }
         return false;
