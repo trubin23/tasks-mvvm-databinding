@@ -34,12 +34,13 @@ public class TaskDetailViewModel extends BaseObservable {
             mTasksRepository.getTask(taskId, new TasksDataSource.GetTaskCallback() {
                 @Override
                 public void onTaskLoaded(@NonNull Task task) {
-
+                    mTaskObservable.set(task);
+                    notifyChange();
                 }
 
                 @Override
                 public void onDataNotAvailable() {
-
+                    mTaskObservable.set(null);
                 }
             });
         }
