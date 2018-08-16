@@ -16,8 +16,8 @@
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:onRefreshListener="@{ViewModel::onRefresh}"
-        app:refreshing="@{ViewModel.dataLoading}">
+        android:onRefresh="@{ViewModel}"
+        app:refreshing="@{ViewModel.mDataLoading}">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

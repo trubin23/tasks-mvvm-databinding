@@ -3,6 +3,7 @@ package ru.trubin23.tasks_mvvm_databinding.taskdetail;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,11 +22,11 @@ public class TaskDetailViewModel extends BaseObservable {
 
     private final ObservableField<Task> mTaskObservable = new ObservableField<>();
 
+    public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
+
     private final Context mContext;
 
     private TaskDetailNavigator mNavigator;
-
-    private boolean mIsDataLoading;
 
     TaskDetailViewModel(@NonNull TasksRepository repository, @NonNull Context context) {
         mTasksRepository = repository;
@@ -34,20 +35,20 @@ public class TaskDetailViewModel extends BaseObservable {
 
     void start(@Nullable String taskId) {
         if (taskId != null) {
-            mIsDataLoading = true;
+            mDataLoading.set(true);
 
             mTasksRepository.getTask(taskId, new TasksDataSource.GetTaskCallback() {
                 @Override
                 public void onTaskLoaded(@NonNull Task task) {
                     mTaskObservable.set(task);
-                    mIsDataLoading = false;
+                    mDataLoading.set(true);
                     notifyChange();
                 }
 
                 @Override
                 public void onDataNotAvailable() {
                     mTaskObservable.set(null);
-                    mIsDataLoading = false;
+                    mDataLoading.set(false);
                 }
             });
         }
@@ -74,7 +75,7 @@ public class TaskDetailViewModel extends BaseObservable {
     }
 
     @Bindable
-    public boolean isDataLoading(){
-        return mIsDataLoading;
+    public boolean isDataAvailable(){
+        return mTaskObservable.get() != null;
     }
 }
