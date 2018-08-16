@@ -11,7 +11,7 @@
             type="ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailViewModel" />
 
     </data>
-    
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
@@ -26,27 +26,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No data"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
+                android:text="@string/no_data"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:visibility="@{ViewModel.dataAvailable ? View.GONE : View.VISIBLE}" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="@{ViewModel.dataAvailable ? View.VISIBLE : View.GONE}">
 
                 <CheckBox
                     android:id="@+id/task_detail_complete"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:checked="@={ViewModel.completed}" />
 
                 <TextView
                     android:id="@+id/task_detail_title"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="@={ViewModel.title}" />
 
                 <TextView
                     android:id="@+id/task_detail_description"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="@={ViewModel.description}" />
 
             </android.support.constraint.ConstraintLayout>
 
