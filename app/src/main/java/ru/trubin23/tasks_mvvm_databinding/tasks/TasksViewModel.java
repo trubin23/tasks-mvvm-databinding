@@ -93,9 +93,6 @@ public class TasksViewModel extends BaseObservable {
                         case ALL_TASKS:
                             tasksToShow.add(task);
                             break;
-                        default:
-                            tasksToShow.add(task);
-                            break;
                     }
                 }
                 if (showLoadingUI){
