@@ -13,35 +13,43 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loading"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="@{ViewModel.mDataLoading ? View.VISIBLE : View.GONE}" />
 
         <LinearLayout
             android:id="@+id/statistics"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="@{ViewModel.mDataLoading ? View.GONE : View.VISIBLE}">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/statistics_no_tasks"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{ViewModel.empty ? View.VISIBLE : View.GONE}" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:text="@{ViewModel.numberOfActiveTasks}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{ViewModel.empty ? View.GONE : View.VISIBLE}" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:text="@{ViewModel.numberOfCompletedTasks}"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="@{ViewModel.empty ? View.GONE : View.VISIBLE}" />
 
         </LinearLayout>
 
