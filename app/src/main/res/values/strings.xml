@@ -25,4 +25,5 @@
     <string name="task_list">Task list</string>
     <string name="title_hint">Title</string>
     <string name="description_hint">Enter your tasks here.</string>
+    <string name="loading">LOADING</string>
 </resources>
