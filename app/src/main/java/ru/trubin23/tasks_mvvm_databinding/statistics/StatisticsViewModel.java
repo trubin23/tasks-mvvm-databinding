@@ -1,6 +1,7 @@
 package ru.trubin23.tasks_mvvm_databinding.statistics;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
@@ -12,7 +13,7 @@ import ru.trubin23.tasks_mvvm_databinding.data.Task;
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksDataSource;
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
-public class StatisticsViewModel {
+public class StatisticsViewModel extends BaseObservable {
 
     public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
 

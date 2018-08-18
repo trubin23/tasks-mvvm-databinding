@@ -54,6 +54,25 @@ public class TaskDetailViewModel extends BaseObservable {
         }
     }
 
+    @Bindable
+    public boolean getCompleted() {
+        Task task = mTaskObservable.get();
+        return task != null && task.isCompleted();
+    }
+
+    public void setCompleted(boolean completed){
+        Task task = mTaskObservable.get();
+        if (task == null){
+            return;
+        }
+
+        if (completed) {
+            mTasksRepository.completedTask(task.getTaskId(), true);
+        } else {
+            mTasksRepository.completedTask(task.getTaskId(), false);
+        }
+    }
+
     void setNavigator(TaskDetailNavigator navigator) {
         mNavigator = navigator;
     }
@@ -75,7 +94,7 @@ public class TaskDetailViewModel extends BaseObservable {
     }
 
     @Bindable
-    public boolean isDataAvailable(){
+    public boolean isDataAvailable() {
         return mTaskObservable.get() != null;
     }
 }
