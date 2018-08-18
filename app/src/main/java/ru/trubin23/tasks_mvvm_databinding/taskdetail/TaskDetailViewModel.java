@@ -8,6 +8,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksDataSource;
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
@@ -21,6 +22,12 @@ public class TaskDetailViewModel extends BaseObservable {
     private final TasksRepository mTasksRepository;
 
     private final ObservableField<Task> mTaskObservable = new ObservableField<>();
+
+    public final ObservableField<String> title = new ObservableField<>();
+
+    public final ObservableField<String> description = new ObservableField<>();
+
+    private final ObservableField<String> mSnackbarText = new ObservableField<>();
 
     public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
 
@@ -60,16 +67,18 @@ public class TaskDetailViewModel extends BaseObservable {
         return task != null && task.isCompleted();
     }
 
-    public void setCompleted(boolean completed){
+    public void setCompleted(boolean completed) {
         Task task = mTaskObservable.get();
-        if (task == null){
+        if (task == null) {
             return;
         }
 
         if (completed) {
             mTasksRepository.completedTask(task.getTaskId(), true);
+            mSnackbarText.set(mContext.getResources().getString(R.string.task_marked_complete));
         } else {
             mTasksRepository.completedTask(task.getTaskId(), false);
+            mSnackbarText.set(mContext.getResources().getString(R.string.task_marked_active));
         }
     }
 
@@ -96,5 +105,12 @@ public class TaskDetailViewModel extends BaseObservable {
     @Bindable
     public boolean isDataAvailable() {
         return mTaskObservable.get() != null;
+    }
+
+    public void onRefresh() {
+        Task task = mTaskObservable.get();
+        if (task != null){
+            start(task.getTaskId());
+        }
     }
 }

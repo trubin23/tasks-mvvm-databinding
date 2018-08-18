@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
+import ru.trubin23.tasks_mvvm_databinding.databinding.TaskDetailFragBinding;
 
 /**
  * Created by Andrey on 20.03.2018.
