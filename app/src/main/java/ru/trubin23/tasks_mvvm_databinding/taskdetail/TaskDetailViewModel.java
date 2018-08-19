@@ -3,6 +3,7 @@ package ru.trubin23.tasks_mvvm_databinding.taskdetail;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
@@ -23,9 +24,9 @@ public class TaskDetailViewModel extends BaseObservable {
 
     private final ObservableField<Task> mTaskObservable = new ObservableField<>();
 
-    public final ObservableField<String> title = new ObservableField<>();
+    public final ObservableField<String> mTitle = new ObservableField<>();
 
-    public final ObservableField<String> description = new ObservableField<>();
+    public final ObservableField<String> mDescription = new ObservableField<>();
 
     private final ObservableField<String> mSnackbarText = new ObservableField<>();
 
@@ -38,6 +39,12 @@ public class TaskDetailViewModel extends BaseObservable {
     TaskDetailViewModel(@NonNull TasksRepository repository, @NonNull Context context) {
         mTasksRepository = repository;
         mContext = context;
+
+        mTaskObservable.addOnPropertyChangedCallback(new OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+            }
+        });
     }
 
     void start(@Nullable String taskId) {
