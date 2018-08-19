@@ -28,12 +28,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/no_data"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:visibility="@{ViewModel.mDataLoading ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{ViewModel.dataAvailable ? View.GONE : View.VISIBLE}" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{ViewModel.mDataLoading ? View.VISIBLE : View.GONE}">
+                android:visibility="@{ViewModel.dataAvailable ? View.VISIBLE : View.GONE}">
 
                 <CheckBox
                     android:id="@+id/task_detail_complete"

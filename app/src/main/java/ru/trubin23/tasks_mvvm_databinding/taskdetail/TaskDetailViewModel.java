@@ -43,6 +43,14 @@ public class TaskDetailViewModel extends BaseObservable {
         mTaskObservable.addOnPropertyChangedCallback(new OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
+                Task task = mTaskObservable.get();
+                if (task!=null) {
+                    mTitle.set(task.getTitle());
+                    mDescription.set(task.getDescription());
+                } else {
+                    mTitle.set(mContext.getString(R.string.no_data));
+                    mTitle.set(mContext.getString(R.string.no_data_description));
+                }
             }
         });
     }
@@ -55,7 +63,7 @@ public class TaskDetailViewModel extends BaseObservable {
                 @Override
                 public void onTaskLoaded(@NonNull Task task) {
                     mTaskObservable.set(task);
-                    mDataLoading.set(true);
+                    mDataLoading.set(false);
                     notifyChange();
                 }
 
