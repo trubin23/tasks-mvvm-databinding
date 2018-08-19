@@ -53,6 +53,12 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     @NonNull
     private TaskDetailFragment findOrCreateFragment() {
         String taskId = getIntent().getStringExtra(TASK_DETAIL_TASK_ID);
@@ -93,7 +99,8 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
 
     @Override
     public void onTaskDeleted() {
-
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
