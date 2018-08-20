@@ -44,7 +44,7 @@ public class TaskDetailViewModel extends BaseObservable {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 Task task = mTaskObservable.get();
-                if (task!=null) {
+                if (task != null) {
                     mTitle.set(task.getTitle());
                     mDescription.set(task.getDescription());
                 } else {
@@ -112,6 +112,10 @@ public class TaskDetailViewModel extends BaseObservable {
     }
 
     public void deleteTask() {
+        Task task = mTaskObservable.get();
+        if (task != null) {
+            mTasksRepository.deleteTask(task.getTaskId());
+        }
         if (mNavigator != null) {
             mNavigator.onTaskDeleted();
         }
@@ -124,7 +128,7 @@ public class TaskDetailViewModel extends BaseObservable {
 
     public void onRefresh() {
         Task task = mTaskObservable.get();
-        if (task != null){
+        if (task != null) {
             start(task.getTaskId());
         }
     }
