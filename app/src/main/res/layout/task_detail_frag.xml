@@ -16,6 +16,7 @@
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/activity_padding"
         app:onRefreshListener="@{ViewModel::onRefresh}"
         app:refreshing="@{ViewModel.mDataLoading}">
 
@@ -30,8 +31,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:visibility="@{ViewModel.dataAvailable ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@={ViewModel.mTitle}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/task_detail_complete"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/item_margin"
                     android:text="@={ViewModel.mDescription}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/task_detail_complete"
                     app:layout_constraintTop_toBottomOf="@+id/task_detail_title" />

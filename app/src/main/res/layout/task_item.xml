@@ -14,7 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{() -> ViewModel.taskClicked()}"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/item_vertical_padding"
+        android:paddingEnd="@dimen/item_horizontal_padding"
+        android:paddingStart="@dimen/item_horizontal_padding"
+        android:paddingTop="@dimen/item_vertical_padding">
 
         <CheckBox
             android:id="@+id/item_completed"
