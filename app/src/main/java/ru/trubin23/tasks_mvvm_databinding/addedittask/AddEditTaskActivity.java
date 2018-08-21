@@ -13,7 +13,7 @@ import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailFragment;
 import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailViewModel;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
-public class AddEditTaskActivity extends AppCompatActivity {
+public class AddEditTaskActivity extends AppCompatActivity implements AddEditTaskNavigator {
 
     public static final String ADD_EDIT_TASK_ID = "ADD_EDIT_TASK_ID";
 
@@ -78,5 +78,16 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
             return viewModel;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onTaskSaved() {
+        setResult(RESULT_OK);
+        finish();
     }
 }
