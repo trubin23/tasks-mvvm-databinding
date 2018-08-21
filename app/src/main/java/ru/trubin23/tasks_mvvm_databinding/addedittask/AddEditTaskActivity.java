@@ -89,6 +89,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements AddEditTas
 
     @Override
     protected void onDestroy() {
+        mViewModel.onActivityDestroyed();
         super.onDestroy();
     }
 
