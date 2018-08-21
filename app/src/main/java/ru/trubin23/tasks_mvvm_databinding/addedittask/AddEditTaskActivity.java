@@ -44,13 +44,13 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
     @NonNull
     private AddEditTaskFragment findOrCreateFragment() {
-        //String taskId = getIntent().getStringExtra(ADD_EDIT_TASK_ID);
+        String taskId = getIntent().getStringExtra(ADD_EDIT_TASK_ID);
 
         AddEditTaskFragment addEditTaskFragment =
                 (AddEditTaskFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.content_frame);
         if (addEditTaskFragment == null) {
-            addEditTaskFragment = AddEditTaskFragment.newInstance();
+            addEditTaskFragment = AddEditTaskFragment.newInstance(taskId);
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     addEditTaskFragment, R.id.content_frame);
         }
