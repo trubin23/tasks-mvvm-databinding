@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import ru.trubin23.tasks_mvvm_databinding.databinding.AddEditTaskFragBinding;
-import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailFragment;
 
 public class AddEditTaskFragment extends Fragment {
 
@@ -23,5 +22,9 @@ public class AddEditTaskFragment extends Fragment {
         AddEditTaskFragment addEditTaskFragment = new AddEditTaskFragment();
         addEditTaskFragment.setArguments(arguments);
         return addEditTaskFragment;
+    }
+
+    public void setViewModel(AddEditTaskViewModel viewModel) {
+        mViewModel = viewModel;
     }
 }

@@ -9,8 +9,6 @@ import android.support.v7.widget.Toolbar;
 import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
-import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailFragment;
-import ru.trubin23.tasks_mvvm_databinding.taskdetail.TaskDetailViewModel;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
 public class AddEditTaskActivity extends AppCompatActivity implements AddEditTaskNavigator {
@@ -19,12 +17,21 @@ public class AddEditTaskActivity extends AppCompatActivity implements AddEditTas
 
     private static final String ADDEDITTASK_VIEWMODEL_TAG = "ADDEDITTASK_VIEWMODEL_TAG";
 
+    private AddEditTaskViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_edit_task_act);
 
         setupToolbar();
+
+        AddEditTaskFragment addEditTaskFragment = findOrCreateFragment();
+
+        mViewModel = findOrCreateViewModel();
+        mViewModel.setNavigator(this);
+
+        addEditTaskFragment.setViewModel(mViewModel);
     }
 
     private void setupToolbar() {
