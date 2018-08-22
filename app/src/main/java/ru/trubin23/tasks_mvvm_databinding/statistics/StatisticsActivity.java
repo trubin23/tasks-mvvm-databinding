@@ -1,6 +1,7 @@
 package ru.trubin23.tasks_mvvm_databinding.statistics;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
+import ru.trubin23.tasks_mvvm_databinding.tasks.TasksFragment;
+import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
 public class StatisticsActivity extends AppCompatActivity {
 
@@ -70,5 +73,17 @@ public class StatisticsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @NonNull
+    private StatisticsFragment findOrCreateFragment() {
+        StatisticsFragment statisticsFragment = (StatisticsFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.content_frame);
+        if (statisticsFragment == null) {
+            statisticsFragment = StatisticsFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    statisticsFragment, R.id.content_frame);
+        }
+        return statisticsFragment;
     }
 }
