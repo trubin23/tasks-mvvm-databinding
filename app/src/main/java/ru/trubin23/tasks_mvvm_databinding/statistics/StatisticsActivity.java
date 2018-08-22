@@ -32,6 +32,12 @@ public class StatisticsActivity extends AppCompatActivity {
         setupToolbar();
 
         setupNavigationDrawer();
+
+        StatisticsFragment statisticsFragment = findOrCreateFragment();
+
+        StatisticsViewModel viewModel = findOrCreateViewModel();
+
+        statisticsFragment.setViewModel(viewModel);
     }
 
     private void setupToolbar() {

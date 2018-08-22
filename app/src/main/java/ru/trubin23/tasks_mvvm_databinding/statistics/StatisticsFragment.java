@@ -16,4 +16,8 @@ public class StatisticsFragment extends Fragment {
     public static StatisticsFragment newInstance() {
         return new StatisticsFragment();
     }
+
+    public void setViewModel(StatisticsViewModel viewModel) {
+        mViewModel = viewModel;
+    }
 }
