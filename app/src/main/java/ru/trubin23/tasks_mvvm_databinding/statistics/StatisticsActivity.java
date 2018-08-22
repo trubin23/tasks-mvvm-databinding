@@ -11,8 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.R;
+import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
 import ru.trubin23.tasks_mvvm_databinding.tasks.TasksFragment;
+import ru.trubin23.tasks_mvvm_databinding.tasks.TasksViewModel;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
 public class StatisticsActivity extends AppCompatActivity {
@@ -85,5 +88,27 @@ public class StatisticsActivity extends AppCompatActivity {
                     statisticsFragment, R.id.content_frame);
         }
         return statisticsFragment;
+    }
+
+    @NonNull
+    private StatisticsViewModel findOrCreateViewModel() {
+        //noinspection unchecked
+        ViewModelHolder<StatisticsViewModel> retainedViewModel =
+                (ViewModelHolder<StatisticsViewModel>) getSupportFragmentManager()
+                        .findFragmentByTag(STATS_VIEWMODEL_TAG);
+
+        if (retainedViewModel != null && retainedViewModel.getViewModel() != null) {
+            return retainedViewModel.getViewModel();
+        } else {
+            StatisticsViewModel viewModel = new StatisticsViewModel(
+                    getApplicationContext(),
+                    Injection.provideTasksRepository(getApplicationContext()));
+
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    ViewModelHolder.createContainer(viewModel),
+                    STATS_VIEWMODEL_TAG);
+
+            return viewModel;
+        }
     }
 }

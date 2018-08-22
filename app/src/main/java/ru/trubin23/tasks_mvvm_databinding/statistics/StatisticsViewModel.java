@@ -25,7 +25,7 @@ public class StatisticsViewModel extends BaseObservable {
 
     private final TasksRepository mTasksRepository;
 
-    private StatisticsViewModel(Context context, TasksRepository tasksRepository) {
+    public StatisticsViewModel(Context context, TasksRepository tasksRepository) {
         mContext = context;
         mTasksRepository = tasksRepository;
     }
