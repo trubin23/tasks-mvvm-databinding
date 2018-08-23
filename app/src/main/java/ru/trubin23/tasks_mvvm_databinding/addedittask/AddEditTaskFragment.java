@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.databinding.AddEditTaskFragBinding;
-import ru.trubin23.tasks_mvvm_databinding.databinding.TaskDetailFragBinding;
 
 public class AddEditTaskFragment extends Fragment {
 
@@ -47,11 +48,25 @@ public class AddEditTaskFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         setupFab();
+
+        setupActionBar();
     }
 
     private void setupFab() {
         FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_task);
         fab.setOnClickListener(view -> mViewModel.saveTask());
+    }
+
+    private void setupActionBar() {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar == null){
+            return;
+        }
+        if (getArguments().get(ARGUMENT_TASK_ID) != null){
+            actionBar.setTitle(R.string.edit_task);
+        } else {
+            actionBar.setTitle(R.string.add_task);
+        }
     }
 
     @Override

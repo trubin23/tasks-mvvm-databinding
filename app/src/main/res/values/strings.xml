@@ -34,4 +34,6 @@
     <string name="task_marked_complete">Task marked complete.</string>
     <string name="task_marked_active">Task marked active.</string>
     <string name="no_data_description" />
+    <string name="edit_task">Edit task</string>
+    <string name="add_task">Add task</string>
 </resources>
