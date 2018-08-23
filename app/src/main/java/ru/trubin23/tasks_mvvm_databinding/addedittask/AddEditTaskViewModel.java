@@ -16,6 +16,8 @@ public class AddEditTaskViewModel extends BaseObservable {
 
     public final ObservableBoolean mDataLoading = new ObservableBoolean(false);
 
+    public final ObservableField<String> mSnackbarText = new ObservableField<>();
+
     private AddEditTaskNavigator mNavigator;
 
     AddEditTaskViewModel(@NonNull TasksRepository repository, @NonNull Context context) {

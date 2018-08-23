@@ -1,5 +1,6 @@
 package ru.trubin23.tasks_mvvm_databinding.addedittask;
 
+import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,8 @@ public class AddEditTaskFragment extends Fragment {
     private static final String ARGUMENT_TASK_ID = "TASK_ID";
 
     private AddEditTaskViewModel mViewModel;
+
+    private Observable.OnPropertyChangedCallback mSnackbarCallback;
 
     public AddEditTaskFragment() {
     }
@@ -49,12 +52,32 @@ public class AddEditTaskFragment extends Fragment {
 
         setupFab();
 
+        setupSnackbar();
+
         setupActionBar();
     }
 
     private void setupFab() {
         FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_task);
         fab.setOnClickListener(view -> mViewModel.saveTask());
+    }
+
+    private void setupSnackbar() {
+        mSnackbarCallback = new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+
+            }
+        };
+        mViewModel.mSnackbarText.addOnPropertyChangedCallback(mSnackbarCallback);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mSnackbarCallback != null){
+            mViewModel.mSnackbarText.removeOnPropertyChangedCallback(mSnackbarCallback);
+        }
+        super.onDestroy();
     }
 
     private void setupActionBar() {
