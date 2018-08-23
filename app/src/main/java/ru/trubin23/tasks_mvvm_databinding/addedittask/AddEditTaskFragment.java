@@ -17,8 +17,6 @@ public class AddEditTaskFragment extends Fragment {
 
     private AddEditTaskViewModel mViewModel;
 
-    private AddEditTaskFragBinding mAddEditTaskFragBinding;
-
     public AddEditTaskFragment() {
     }
 
@@ -41,6 +39,16 @@ public class AddEditTaskFragment extends Fragment {
         setHasOptionsMenu(true);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getArguments() != null){
+            mViewModel.start(getArguments().getString(ARGUMENT_TASK_ID));
+        } else {
+            mViewModel.start(null);
+        }
     }
 
     public void setViewModel(AddEditTaskViewModel viewModel) {

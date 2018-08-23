@@ -28,4 +28,8 @@ public class AddEditTaskViewModel extends BaseObservable {
     public void onActivityDestroyed() {
         mNavigator = null;
     }
+
+    public void start(String taskId) {
+
+    }
 }
