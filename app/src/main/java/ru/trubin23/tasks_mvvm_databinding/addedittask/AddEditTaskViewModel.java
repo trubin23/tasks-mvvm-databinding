@@ -32,4 +32,8 @@ public class AddEditTaskViewModel extends BaseObservable {
     public void start(String taskId) {
 
     }
+
+    public void saveTask() {
+
+    }
 }
