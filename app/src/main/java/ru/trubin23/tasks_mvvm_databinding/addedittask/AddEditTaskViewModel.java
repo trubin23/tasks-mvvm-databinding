@@ -21,9 +21,20 @@ public class AddEditTaskViewModel extends BaseObservable {
 
     private AddEditTaskNavigator mNavigator;
 
+    @Nullable
     private String mTaskId;
 
+    private boolean mIsNewTask;
+
+    private boolean mIsDataLoaded = false;
+
+    private final TasksRepository mTasksRepository;
+
+    private final Context mContext;
+
     AddEditTaskViewModel(@NonNull TasksRepository repository, @NonNull Context context) {
+        mTasksRepository = repository;
+        mContext = context;
     }
 
     public void setNavigator(AddEditTaskNavigator navigator) {
