@@ -5,6 +5,7 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
@@ -20,6 +21,8 @@ public class AddEditTaskViewModel extends BaseObservable {
 
     private AddEditTaskNavigator mNavigator;
 
+    private String mTaskId;
+
     AddEditTaskViewModel(@NonNull TasksRepository repository, @NonNull Context context) {
     }
 
@@ -32,7 +35,15 @@ public class AddEditTaskViewModel extends BaseObservable {
     }
 
     public void start(String taskId) {
+        if (mDataLoading.get()) {
+            return;
+        }
+        mTaskId = taskId;
+    }
 
+    @Nullable
+    public String getSnackbarText() {
+        return mSnackbarText.get();
     }
 
     public void saveTask() {

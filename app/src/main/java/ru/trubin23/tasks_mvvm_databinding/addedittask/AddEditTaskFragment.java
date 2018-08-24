@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.databinding.AddEditTaskFragBinding;
+import ru.trubin23.tasks_mvvm_databinding.util.SnackbarUtil;
 
 public class AddEditTaskFragment extends Fragment {
 
@@ -66,7 +67,7 @@ public class AddEditTaskFragment extends Fragment {
         mSnackbarCallback = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-
+                SnackbarUtil.showSnackbar(getView(), mViewModel.getSnackbarText());
             }
         };
         mViewModel.mSnackbarText.addOnPropertyChangedCallback(mSnackbarCallback);
