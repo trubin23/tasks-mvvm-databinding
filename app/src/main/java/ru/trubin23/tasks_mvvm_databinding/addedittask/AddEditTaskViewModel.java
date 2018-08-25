@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import ru.trubin23.tasks_mvvm_databinding.data.Task;
+import ru.trubin23.tasks_mvvm_databinding.data.source.TasksDataSource;
 import ru.trubin23.tasks_mvvm_databinding.data.source.TasksRepository;
 
 public class AddEditTaskViewModel extends BaseObservable {
@@ -55,6 +56,22 @@ public class AddEditTaskViewModel extends BaseObservable {
             mIsNewTask = true;
             return;
         }
+        if (mIsDataLoaded){
+            return;
+        }
+        mIsNewTask = false;
+        mDataLoading.set(true);
+        mTasksRepository.getTask(mTaskId, new TasksDataSource.GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(@NonNull Task task) {
+
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
     }
 
     @Nullable
@@ -71,7 +88,7 @@ public class AddEditTaskViewModel extends BaseObservable {
     }
 
     private void createTask(String title, String description) {
-
+        Task task = new Task(title, description);
     }
 
     private void updateTask(String title, String description) {
