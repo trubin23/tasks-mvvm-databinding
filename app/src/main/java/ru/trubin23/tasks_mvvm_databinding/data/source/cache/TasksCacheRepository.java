@@ -100,8 +100,7 @@ public class TasksCacheRepository implements TasksCacheDataSource {
         Task task = getTaskById(taskId);
         if (task != null){
             Task cacheTask = new Task(task.getTitle(), task.getDescription(),
-                    task.getTaskId(), task.getDateOfCreation(),
-                    completed, task.getDateOfChange());
+                    task.getTaskId(), completed);
             addTask(cacheTask);
         }
     }

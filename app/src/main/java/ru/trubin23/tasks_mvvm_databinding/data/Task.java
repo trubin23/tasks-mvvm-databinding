@@ -25,26 +25,15 @@ public final class Task {
     @ColumnInfo(name = "description")
     private final String mDescription;
 
-    @NonNull
-    @ColumnInfo(name = "date_of_creation")
-    private final String mDateOfCreation;
-
     @ColumnInfo(name = "completed")
     private final boolean mCompleted;
 
-    @NonNull
-    @ColumnInfo(name = "date_of_change")
-    private final String mDateOfChange;
-
     public Task(@NonNull String title, @NonNull String description,
-                @NonNull String taskId, @NonNull String dateOfCreation,
-                boolean completed, @NonNull String dateOfChange) {
+                @NonNull String taskId, boolean completed) {
         mTitle = title;
         mDescription = description;
         mTaskId = taskId;
-        mDateOfCreation = dateOfCreation;
         mCompleted = completed;
-        mDateOfChange = dateOfChange;
     }
 
     @NonNull
@@ -62,17 +51,7 @@ public final class Task {
         return mDescription;
     }
 
-    @NonNull
-    public String getDateOfCreation() {
-        return mDateOfCreation;
-    }
-
     public boolean isCompleted() {
         return mCompleted;
-    }
-
-    @NonNull
-    public String getDateOfChange() {
-        return mDateOfChange;
     }
 }

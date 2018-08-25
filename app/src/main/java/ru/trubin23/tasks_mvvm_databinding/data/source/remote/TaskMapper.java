@@ -16,16 +16,13 @@ class TaskMapper {
     @NonNull
     static Task networkTaskToTask(@NonNull NetworkTask networkTask) {
         return new Task(networkTask.getTitle(), networkTask.getDescription(),
-                networkTask.getId(), networkTask.getDateOfCreation(),
-                StatusOfTask.integerToBoolean(networkTask.getCompleted()),
-                networkTask.getDateOfChange());
+                networkTask.getId(), StatusOfTask.integerToBoolean(networkTask.getCompleted()));
     }
 
     @NonNull
     static NetworkTask taskToNetworkTask(@NonNull Task task) {
         return new NetworkTask(task.getTaskId(), task.getTitle(),
-                task.getDescription(), task.getDateOfCreation(),
-                task.isCompleted(), task.getDateOfChange());
+                task.getDescription(), task.isCompleted());
     }
 
     @NonNull
