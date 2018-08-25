@@ -14,8 +14,6 @@ import android.view.MenuItem;
 import ru.trubin23.tasks_mvvm_databinding.Injection;
 import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
-import ru.trubin23.tasks_mvvm_databinding.tasks.TasksFragment;
-import ru.trubin23.tasks_mvvm_databinding.tasks.TasksViewModel;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
 public class StatisticsActivity extends AppCompatActivity {

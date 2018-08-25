@@ -68,7 +68,7 @@ public class TasksActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
@@ -81,11 +81,11 @@ public class TasksActivity extends AppCompatActivity
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        if (navigationView == null){
+        if (navigationView == null) {
             return;
         }
         navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.list_nav_menu_item:
                     break;
                 case R.id.statistics_nav_menu_item:
