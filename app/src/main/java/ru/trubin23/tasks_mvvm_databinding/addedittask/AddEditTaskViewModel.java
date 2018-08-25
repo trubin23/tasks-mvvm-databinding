@@ -51,6 +51,10 @@ public class AddEditTaskViewModel extends BaseObservable {
             return;
         }
         mTaskId = taskId;
+        if (taskId == null){
+            mIsNewTask = true;
+            return;
+        }
     }
 
     @Nullable
@@ -72,7 +76,7 @@ public class AddEditTaskViewModel extends BaseObservable {
 
     private void updateTask(String title, String description) {
         if (!mIsNewTask) {
-            //mTasksRepository.saveTask(new Task(title, description, mTaskId));
+            mTasksRepository.saveTask(new Task(title, description, mTaskId));
             navigateOnTaskSaved();
         }
     }

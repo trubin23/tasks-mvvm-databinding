@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.UUID;
+
 /**
  * Created by Andrey on 12.03.2018.
  */
@@ -34,6 +36,14 @@ public final class Task {
         mDescription = description;
         mTaskId = taskId;
         mCompleted = completed;
+    }
+
+    public Task(@NonNull String title, @NonNull String description, @NonNull String taskId) {
+        this(title, description, taskId, false);
+    }
+
+    public Task(@NonNull String title, @NonNull String description) {
+        this(title, description, UUID.randomUUID().toString(), false);
     }
 
     @NonNull
