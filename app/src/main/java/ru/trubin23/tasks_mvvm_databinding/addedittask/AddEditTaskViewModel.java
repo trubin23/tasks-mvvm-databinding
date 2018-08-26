@@ -65,12 +65,15 @@ public class AddEditTaskViewModel extends BaseObservable {
         mTasksRepository.getTask(mTaskId, new TasksDataSource.GetTaskCallback() {
             @Override
             public void onTaskLoaded(@NonNull Task task) {
-
+                mTitle.set(task.getTitle());
+                mDescription.set(task.getDescription());
+                mDataLoading.set(false);
+                mIsDataLoaded = true;
             }
 
             @Override
             public void onDataNotAvailable() {
-
+                mDataLoading.set(false);
             }
         });
     }

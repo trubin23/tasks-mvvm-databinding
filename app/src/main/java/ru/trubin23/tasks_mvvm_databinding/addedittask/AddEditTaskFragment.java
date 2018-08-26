@@ -75,7 +75,7 @@ public class AddEditTaskFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        if (mSnackbarCallback != null){
+        if (mSnackbarCallback != null) {
             mViewModel.mSnackbarText.removeOnPropertyChangedCallback(mSnackbarCallback);
         }
         super.onDestroy();
@@ -83,10 +83,10 @@ public class AddEditTaskFragment extends Fragment {
 
     private void setupActionBar() {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar == null){
+        if (actionBar == null) {
             return;
         }
-        if (getArguments().get(ARGUMENT_TASK_ID) != null){
+        if (getArguments() != null && getArguments().get(ARGUMENT_TASK_ID) != null) {
             actionBar.setTitle(R.string.edit_task);
         } else {
             actionBar.setTitle(R.string.add_task);
@@ -96,7 +96,7 @@ public class AddEditTaskFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (getArguments() != null){
+        if (getArguments() != null) {
             mViewModel.start(getArguments().getString(ARGUMENT_TASK_ID));
         } else {
             mViewModel.start(null);
