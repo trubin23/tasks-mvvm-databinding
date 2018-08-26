@@ -2,6 +2,7 @@ package ru.trubin23.tasks_mvvm_databinding.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -40,10 +41,12 @@ public final class Task {
         mCompleted = completed;
     }
 
+    @Ignore
     public Task(@NonNull String title, @NonNull String description, @NonNull String taskId) {
         this(title, description, taskId, false);
     }
 
+    @Ignore
     public Task(@NonNull String title, @NonNull String description) {
         this(title, description, UUID.randomUUID().toString(), false);
     }
