@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.common.base.Strings;
+
 import java.util.UUID;
 
 /**
@@ -63,5 +65,9 @@ public final class Task {
 
     public boolean isCompleted() {
         return mCompleted;
+    }
+
+    public boolean isEmpty() {
+        return Strings.isNullOrEmpty(mTitle) && Strings.isNullOrEmpty(mDescription);
     }
 }

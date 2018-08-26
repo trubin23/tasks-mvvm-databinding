@@ -36,4 +36,6 @@
     <string name="no_data_description" />
     <string name="edit_task">Edit task</string>
     <string name="add_task">Add task</string>
+
+    <string name="empty_task_message">Task cannot be empty</string>
 </resources>
