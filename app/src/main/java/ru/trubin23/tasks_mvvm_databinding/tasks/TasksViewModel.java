@@ -157,6 +157,7 @@ public class TasksViewModel extends BaseObservable {
 
         switch (resultCode){
             case TasksActivity.ADD_RESULT_OK:
+                mSnackbarText.set(mContext.getString(R.string.saved_task_message));
                 break;
             case TasksActivity.EDIT_RESULT_OK:
                 break;

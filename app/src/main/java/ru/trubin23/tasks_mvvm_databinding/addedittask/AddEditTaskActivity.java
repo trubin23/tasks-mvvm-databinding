@@ -11,6 +11,8 @@ import ru.trubin23.tasks_mvvm_databinding.R;
 import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
+import static ru.trubin23.tasks_mvvm_databinding.tasks.TasksActivity.ADD_RESULT_OK;
+
 public class AddEditTaskActivity extends AppCompatActivity implements AddEditTaskNavigator {
 
     public static final String ADD_EDIT_TASK_ID = "ADD_EDIT_TASK_ID";
@@ -95,7 +97,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements AddEditTas
 
     @Override
     public void onTaskSaved() {
-        setResult(RESULT_OK);
+        setResult(ADD_RESULT_OK);
         finish();
     }
 }
