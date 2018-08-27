@@ -12,7 +12,7 @@
 
     </data>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <ru.trubin23.tasks_mvvm_databinding.ScrollChildSwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -66,6 +66,6 @@
 
         </LinearLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </ru.trubin23.tasks_mvvm_databinding.ScrollChildSwipeRefreshLayout>
 
 </layout>

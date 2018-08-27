@@ -16,7 +16,9 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 
 import ru.trubin23.tasks_mvvm_databinding.R;
+import ru.trubin23.tasks_mvvm_databinding.ScrollChildSwipeRefreshLayout;
 import ru.trubin23.tasks_mvvm_databinding.databinding.TasksFragBinding;
+import ru.trubin23.tasks_mvvm_databinding.util.SnackbarUtil;
 
 /**
  * Created by Andrey on 11.03.2018.
@@ -60,6 +62,8 @@ public class TasksFragment extends Fragment {
         setupFab();
 
         setupListAdapter();
+
+        setupRefreshLayout();
     }
 
     @Override
@@ -133,6 +137,7 @@ public class TasksFragment extends Fragment {
         mSnackbarCallback = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
+                //SnackbarUtil.showSnackbar(getView(), mViewModel.);
             }
         };
         mViewModel.mSnackbarText.addOnPropertyChangedCallback(mSnackbarCallback);
@@ -150,5 +155,11 @@ public class TasksFragment extends Fragment {
         mTasksAdapter = new TasksAdapter((TasksActivity) getActivity());
 
         listView.setAdapter(mTasksAdapter);
+    }
+
+    private void setupRefreshLayout() {
+        ListView listView = mTasksFragBinding.tasksList;
+        ScrollChildSwipeRefreshLayout swipeRefreshLayout = mTasksFragBinding.refreshLayout;
+        swipeRefreshLayout.setScrollUpChild(listView);
     }
 }
