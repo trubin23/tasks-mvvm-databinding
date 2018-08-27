@@ -46,6 +46,7 @@ public class TasksActivity extends AppCompatActivity
         TasksFragment tasksFragment = findOrCreateFragment();
 
         mViewModel = findOrCreateViewModel();
+        mViewModel.setNavigator(this);
 
         tasksFragment.setViewModel(mViewModel);
     }
@@ -130,7 +131,7 @@ public class TasksActivity extends AppCompatActivity
         } else {
             TasksViewModel viewModel = new TasksViewModel(
                     Injection.provideTasksRepository(getApplicationContext()),
-                    getApplicationContext(), this);
+                    getApplicationContext());
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     ViewModelHolder.createContainer(viewModel),

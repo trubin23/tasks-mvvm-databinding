@@ -31,7 +31,7 @@ public class TasksViewModel extends BaseObservable {
 
     private final Context mContext;
 
-    private WeakReference<TasksNavigator> mTasksNavigator;
+    private TasksNavigator mTasksNavigator;
 
     private TasksFilterType mCurrentFilterType = TasksFilterType.ALL_TASKS;
 
@@ -47,11 +47,9 @@ public class TasksViewModel extends BaseObservable {
 
     public final ObservableField<String> mSnackbarText = new ObservableField<>();
 
-    TasksViewModel(@NonNull TasksRepository repository, @NonNull Context context,
-                   @Nullable TasksNavigator tasksNavigator) {
+    TasksViewModel(@NonNull TasksRepository repository, @NonNull Context context) {
         mTasksRepository = repository;
         mContext = context.getApplicationContext();
-        mTasksNavigator = new WeakReference<>(tasksNavigator);
 
         setFiltering(TasksFilterType.ALL_TASKS);
     }
@@ -141,9 +139,13 @@ public class TasksViewModel extends BaseObservable {
     }
 
     void addNewTask() {
-        if (mTasksNavigator != null && mTasksNavigator.get() != null) {
-            mTasksNavigator.get().showAddTask();
+        if (mTasksNavigator != null) {
+            mTasksNavigator.showAddTask();
         }
+    }
+
+    void setNavigator(@Nullable TasksNavigator tasksNavigator){
+        mTasksNavigator = tasksNavigator;
     }
 
     public void onActivityDestroyed() {
@@ -157,11 +159,13 @@ public class TasksViewModel extends BaseObservable {
 
         switch (resultCode){
             case TasksActivity.ADD_RESULT_OK:
-                mSnackbarText.set(mContext.getString(R.string.saved_task_message));
+                mSnackbarText.set(mContext.getString(R.string.added_task_message));
                 break;
             case TasksActivity.EDIT_RESULT_OK:
+                mSnackbarText.set(mContext.getString(R.string.saved_task_message));
                 break;
             case TasksActivity.DELETE_RESULT_OK:
+                mSnackbarText.set(mContext.getString(R.string.deleted_task_message));
                 break;
         }
     }
