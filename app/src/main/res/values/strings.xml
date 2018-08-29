@@ -42,4 +42,6 @@
     <string name="added_task_message">Task added</string>
     <string name="saved_task_message">Task saved</string>
     <string name="deleted_task_message">Task was deleted</string>
+
+    <string name="completed_tasks_cleared">Completed tasks cleared</string>
 </resources>

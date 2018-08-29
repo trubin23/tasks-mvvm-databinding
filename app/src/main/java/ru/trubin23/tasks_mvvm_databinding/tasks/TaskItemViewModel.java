@@ -25,6 +25,8 @@ public class TaskItemViewModel extends BaseObservable {
 
     private final ObservableField<Task> mTaskObservable = new ObservableField<>();
 
+    public final ObservableField<String> mSnackbarText = new ObservableField<>();
+
     private WeakReference<TaskItemNavigator> mTaskItemNavigator;
 
     TaskItemViewModel(@NonNull TasksRepository tasksRepository,
@@ -55,6 +57,12 @@ public class TaskItemViewModel extends BaseObservable {
     public void setCompleted(boolean completed) {
         String taskId = getTaskId();
         mTasksRepository.completedTask(taskId, completed);
+
+        if (completed){
+            //mSnackbarText.set();
+        } else {
+
+        }
     }
 
     @NonNull

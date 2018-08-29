@@ -75,7 +75,7 @@ public class TasksFragment extends Fragment {
     @Override
     public void onDestroy() {
         mTasksAdapter.destroy();
-        if (mSnackbarCallback != null){
+        if (mSnackbarCallback != null) {
             mViewModel.mSnackbarText.removeOnPropertyChangedCallback(mSnackbarCallback);
         }
         super.onDestroy();
@@ -137,7 +137,7 @@ public class TasksFragment extends Fragment {
         mSnackbarCallback = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                //SnackbarUtil.showSnackbar(getView(), mViewModel.);
+                SnackbarUtil.showSnackbar(getView(), mViewModel.getSnackbarText());
             }
         };
         mViewModel.mSnackbarText.addOnPropertyChangedCallback(mSnackbarCallback);

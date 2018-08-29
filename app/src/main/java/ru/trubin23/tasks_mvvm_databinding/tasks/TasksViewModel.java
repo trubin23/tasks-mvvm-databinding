@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,12 +58,12 @@ public class TasksViewModel extends BaseObservable {
         return mTasks.isEmpty();
     }
 
-    public void loadTasks(boolean forceUpdate){
+    public void loadTasks(boolean forceUpdate) {
         loadTasks(forceUpdate, true);
     }
 
     private void loadTasks(boolean forceUpdate, boolean showLoadingUI) {
-        if (showLoadingUI){
+        if (showLoadingUI) {
             mDataLoading.set(true);
         }
         if (forceUpdate) {
@@ -93,7 +92,7 @@ public class TasksViewModel extends BaseObservable {
                             break;
                     }
                 }
-                if (showLoadingUI){
+                if (showLoadingUI) {
                     mDataLoading.set(false);
                 }
 
@@ -104,7 +103,7 @@ public class TasksViewModel extends BaseObservable {
 
             @Override
             public void onDataNotAvailable() {
-                if (showLoadingUI){
+                if (showLoadingUI) {
                     mDataLoading.set(false);
                 }
             }
@@ -135,6 +134,7 @@ public class TasksViewModel extends BaseObservable {
 
     void clearCompletedTasks() {
         mTasksRepository.clearCompletedTask();
+        mSnackbarText.set(mContext.getString(R.string.completed_tasks_cleared));
         loadTasks(false, false);
     }
 
@@ -144,7 +144,7 @@ public class TasksViewModel extends BaseObservable {
         }
     }
 
-    void setNavigator(@Nullable TasksNavigator tasksNavigator){
+    void setNavigator(@Nullable TasksNavigator tasksNavigator) {
         mTasksNavigator = tasksNavigator;
     }
 
@@ -153,11 +153,11 @@ public class TasksViewModel extends BaseObservable {
     }
 
     public void handleActivityResult(int requestCode, int resultCode) {
-        if (TasksActivity.REQUEST_CODE != requestCode){
+        if (TasksActivity.REQUEST_CODE != requestCode) {
             return;
         }
 
-        switch (resultCode){
+        switch (resultCode) {
             case TasksActivity.ADD_RESULT_OK:
                 mSnackbarText.set(mContext.getString(R.string.added_task_message));
                 break;
@@ -168,5 +168,9 @@ public class TasksViewModel extends BaseObservable {
                 mSnackbarText.set(mContext.getString(R.string.deleted_task_message));
                 break;
         }
+    }
+
+    public String getSnackbarText() {
+        return mSnackbarText.get();
     }
 }
