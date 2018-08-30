@@ -152,7 +152,7 @@ public class TasksFragment extends Fragment {
     private void setupListAdapter() {
         ListView listView = mTasksFragBinding.tasksList;
 
-        mTasksAdapter = new TasksAdapter((TasksActivity) getActivity());
+        mTasksAdapter = new TasksAdapter((TasksActivity) getActivity(), mViewModel);
 
         listView.setAdapter(mTasksAdapter);
     }

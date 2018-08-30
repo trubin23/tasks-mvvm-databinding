@@ -1,6 +1,7 @@
 package ru.trubin23.tasks_mvvm_databinding.tasks;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,14 @@ public class TasksAdapter extends BaseAdapter {
 
     private WeakReference<TaskItemNavigator> mTaskItemNavigator;
 
+    private TasksViewModel mTasksViewModel;
+
     private List<Task> mTasks;
 
-    TasksAdapter(@NonNull TaskItemNavigator taskItemNavigator) {
+    TasksAdapter(@NonNull TaskItemNavigator taskItemNavigator,
+                 TasksViewModel tasksViewModel) {
         mTaskItemNavigator = new WeakReference<>(taskItemNavigator);
+        mTasksViewModel = tasksViewModel;
         mTasks = new ArrayList<>();
         setTasks(mTasks);
     }
@@ -70,6 +75,15 @@ public class TasksAdapter extends BaseAdapter {
         );
 
         taskItemBinding.setViewModel(taskItemViewModel);
+
+        taskItemViewModel.mSnackbarText.addOnPropertyChangedCallback(
+                new Observable.OnPropertyChangedCallback() {
+                    @Override
+                    public void onPropertyChanged(Observable sender, int propertyId) {
+                        mTasksViewModel.mSnackbarText.set(taskItemViewModel.getSnackbarText());
+                    }
+                }
+        );
 
         taskItemViewModel.setTask(task);
 

@@ -59,9 +59,9 @@ public class TaskItemViewModel extends BaseObservable {
         mTasksRepository.completedTask(taskId, completed);
 
         if (completed){
-            //mSnackbarText.set();
+            mSnackbarText.set(mContext.getString(R.string.task_marked_complete));
         } else {
-
+            mSnackbarText.set(mContext.getString(R.string.task_marked_active));
         }
     }
 
@@ -78,5 +78,9 @@ public class TaskItemViewModel extends BaseObservable {
             return mContext.getString(R.string.no_data);
         }
         return task.getTitle();
+    }
+
+    public String getSnackbarText() {
+        return mSnackbarText.get();
     }
 }
