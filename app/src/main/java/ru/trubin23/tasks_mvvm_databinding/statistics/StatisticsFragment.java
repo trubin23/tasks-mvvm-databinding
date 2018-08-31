@@ -34,6 +34,12 @@ public class StatisticsFragment extends Fragment {
         mStatisticsFragBinding.setViewModel(mViewModel);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.start();
+    }
+
     public static StatisticsFragment newInstance() {
         return new StatisticsFragment();
     }
