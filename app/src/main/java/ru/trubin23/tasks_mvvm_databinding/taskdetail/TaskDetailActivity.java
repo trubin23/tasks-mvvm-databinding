@@ -13,7 +13,9 @@ import ru.trubin23.tasks_mvvm_databinding.ViewModelHolder;
 import ru.trubin23.tasks_mvvm_databinding.addedittask.AddEditTaskActivity;
 import ru.trubin23.tasks_mvvm_databinding.util.ActivityUtils;
 
+import static ru.trubin23.tasks_mvvm_databinding.tasks.TasksActivity.ADD_RESULT_OK;
 import static ru.trubin23.tasks_mvvm_databinding.tasks.TasksActivity.DELETE_RESULT_OK;
+import static ru.trubin23.tasks_mvvm_databinding.tasks.TasksActivity.EDIT_RESULT_OK;
 import static ru.trubin23.tasks_mvvm_databinding.tasks.TasksActivity.REQUEST_CODE;
 
 public class TaskDetailActivity extends AppCompatActivity implements TaskDetailNavigator {
@@ -21,6 +23,8 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
     public static final String TASK_DETAIL_TASK_ID = "TASK_DETAIL_TASK_ID";
 
     private static final String TASKDETAIL_VIEWMODEL_TAG = "TASKDETAIL_VIEWMODEL_TAG";
+
+    public static final int REQUEST_EDIT_TASK = 1;
 
     private TaskDetailViewModel mViewModel;
 
@@ -99,6 +103,14 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_EDIT_TASK && resultCode == ADD_RESULT_OK){
+            setResult(EDIT_RESULT_OK);
+            finish();
+        }
+    }
+
+    @Override
     public void onTaskDeleted() {
         setResult(DELETE_RESULT_OK);
         finish();
@@ -109,6 +121,6 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailN
         String taskId = getIntent().getStringExtra(TASK_DETAIL_TASK_ID);
         Intent intent = new Intent(this, AddEditTaskActivity.class);
         intent.putExtra(AddEditTaskActivity.ADD_EDIT_TASK_ID, taskId);
-        startActivityForResult(intent, REQUEST_CODE);
+        startActivityForResult(intent, REQUEST_EDIT_TASK);
     }
 }
