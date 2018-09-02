@@ -13,7 +13,7 @@ public class ViewModelHolder<T> extends Fragment {
 
     private T mViewModel;
 
-    public static <VM> ViewModelHolder createContainer(@NonNull VM viewModel){
+    public static <VM> ViewModelHolder createContainer(@NonNull VM viewModel) {
         ViewModelHolder<VM> viewModelHolder = new ViewModelHolder<>();
         viewModelHolder.setViewModel(viewModel);
         return viewModelHolder;

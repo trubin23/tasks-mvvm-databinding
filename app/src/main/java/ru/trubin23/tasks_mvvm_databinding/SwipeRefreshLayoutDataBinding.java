@@ -9,7 +9,7 @@ public class SwipeRefreshLayoutDataBinding {
 
     @BindingAdapter("android:onRefresh")
     public static void setSwipeRefreshLayoutOnRefreshListener(SwipeRefreshLayout view,
-                                                              final TasksViewModel viewModel){
+                                                              final TasksViewModel viewModel) {
         view.setOnRefreshListener(() -> viewModel.loadTasks(true));
     }
 }
