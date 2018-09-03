@@ -76,6 +76,8 @@ public class TasksAdapter extends BaseAdapter {
 
         taskItemBinding.setViewModel(taskItemViewModel);
 
+        taskItemViewModel.setTask(task);
+
         taskItemViewModel.mSnackbarText.addOnPropertyChangedCallback(
                 new Observable.OnPropertyChangedCallback() {
                     @Override
@@ -84,8 +86,6 @@ public class TasksAdapter extends BaseAdapter {
                     }
                 }
         );
-
-        taskItemViewModel.setTask(task);
 
         return taskItemBinding.getRoot();
     }
